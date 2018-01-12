@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace gregs_list_sql.Controllers
+namespace keepr.Controllers
 {
     [Route("[controller]")]
     public class AccountController : Controller

@@ -52,10 +52,9 @@ namespace keepr
             services.AddMvc();
             services.AddTransient<IDbConnection>(x => CreateDBContext());
             services.AddTransient<UserRepository>();
-            services.AddTransient<VaultRepository>();
             services.AddTransient<KeepRepository>();
+            services.AddTransient<VaultRepository>();
             services.AddTransient<VaultKeepRepository>();
-
         }
 
         private IDbConnection CreateDBContext()
@@ -74,6 +73,7 @@ namespace keepr
                 app.UseDeveloperExceptionPage();
                 app.UseCors("CorsDevPolicy");
             }
+            //app.UseCors("CorsDevPolicy");
 
             app.UseDefaultFiles();
             app.UseStaticFiles();
