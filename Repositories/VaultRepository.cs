@@ -29,6 +29,12 @@ namespace keepr.Repositories
             return _db.QueryFirstOrDefault<Vault>($"SELECT * FROM vaults WHERE id = {id}", id);
         }
 
+        public IEnumerable<Vault> GetByUserId(int id)
+        {
+            Console.WriteLine("GET REQUEST ID: ", id);
+            return _db.Query<Vault>($"SELECT * FROM vaults WHERE userid = {id}", id);
+        }
+
         public Vault Add(Vault Vault)
         {   
             int id = _db.ExecuteScalar<int>("INSERT INTO vaults (Name, Description, UserId)"
@@ -39,6 +45,7 @@ namespace keepr.Repositories
                             Vault.UserId
                         });
             Vault.Id = id;
+            Vault.Published = true;
             return Vault;
 
         }

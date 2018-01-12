@@ -10,24 +10,24 @@ using Microsoft.AspNetCore.Mvc;
 namespace keepr.Controllers
 {
     [Route("api/[controller]")]
-    public class VaultsController : Controller
+    public class VaultKeepsController : Controller
     {
-        private readonly VaultRepository db;
-        public VaultsController(VaultRepository VaultRepo)
+        private readonly VaultKeepRepository db;
+        public VaultKeepsController(VaultKeepRepository VaultKeepRepo)
         {
-            db = VaultRepo;
+            db = VaultKeepRepo;
         }
 
         // GET api/values
         [HttpGet]
-        public IEnumerable<Vault> Get()
+        public IEnumerable<VaultKeep> Get()
         {
             return db.GetAll();
         }
 
         // GET api/values/5
         [HttpGet("{id}")]
-        public Vault Get(int id)
+        public VaultKeep Get(int id)
         {
             Console.WriteLine(id);
             return db.GetById(id);
@@ -36,19 +36,19 @@ namespace keepr.Controllers
         // POST api/values
         [Authorize]
         [HttpPost]
-        public Vault Post([FromBody]Vault Vault)
+        public VaultKeep Post([FromBody]VaultKeep VaultKeep)
         {
-            return db.Add(Vault);
+            return db.Add(VaultKeep);
         }
 
         // PUT api/values/5
         [Authorize]
         [HttpPut("{id}")]
-        public Vault Put(int id, [FromBody]Vault Vault)
+        public VaultKeep Put(int id, [FromBody]VaultKeep VaultKeep)
         {
             if (ModelState.IsValid)
             {
-                return db.GetOneByIdAndUpdate(id, Vault);
+                return db.GetOneByIdAndUpdate(id, VaultKeep);
             }
             return null;
         }

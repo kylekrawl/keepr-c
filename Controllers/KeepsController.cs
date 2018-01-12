@@ -10,45 +10,59 @@ using Microsoft.AspNetCore.Mvc;
 namespace keepr.Controllers
 {
     [Route("api/[controller]")]
-    public class VaultsController : Controller
+    public class KeepsController : Controller
     {
-        private readonly VaultRepository db;
-        public VaultsController(VaultRepository VaultRepo)
+        private readonly KeepRepository db;
+        public KeepsController(KeepRepository KeepRepo)
         {
-            db = VaultRepo;
+            db = KeepRepo;
         }
 
         // GET api/values
         [HttpGet]
-        public IEnumerable<Vault> Get()
+        public IEnumerable<Keep> Get()
         {
             return db.GetAll();
         }
 
         // GET api/values/5
         [HttpGet("{id}")]
-        public Vault Get(int id)
+        public Keep Get(int id)
         {
             Console.WriteLine(id);
             return db.GetById(id);
         }
 
+        [HttpGet("vaults/{id}")]
+        public IEnumerable<Keep> GetByVault(int id)
+        {
+            Console.WriteLine("GetByVault called!");
+            return db.GetKeepsByVaultId(id);
+        }
+
+        [HttpGet("users/{id}")]
+        public IEnumerable<Keep> GetByUser(int id)
+        {
+            Console.WriteLine("GetByUser called!");
+            return db.GetKeepsByUserId(id);
+        }
+
         // POST api/values
         [Authorize]
         [HttpPost]
-        public Vault Post([FromBody]Vault Vault)
+        public Keep Post([FromBody]Keep Keep)
         {
-            return db.Add(Vault);
+            return db.Add(Keep);
         }
 
         // PUT api/values/5
         [Authorize]
         [HttpPut("{id}")]
-        public Vault Put(int id, [FromBody]Vault Vault)
+        public Keep Put(int id, [FromBody]Keep Keep)
         {
             if (ModelState.IsValid)
             {
-                return db.GetOneByIdAndUpdate(id, Vault);
+                return db.GetOneByIdAndUpdate(id, Keep);
             }
             return null;
         }

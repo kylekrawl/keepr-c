@@ -30,9 +30,9 @@ namespace keepr.Repositories
         }
 
         public Keep Add(Keep Keep)
-        {   
-            int id = _db.ExecuteScalar<int>("INSERT INTO keeps (Name, UserId, Views, VaultAdds, ImageUrl, ArticleUrl, Published)"
-                        + $" VALUES(@Name, @UserId, @Views, @VaultAdds, @ImageUrl, @ArticleUrl, @Published); SELECT LAST_INSERT_ID()", new
+        {
+            int id = _db.ExecuteScalar<int>("INSERT INTO keeps (Name, UserId, Views, VaultAdds, ImageUrl, ArticleUrl)"
+                        + $" VALUES(@Name, @UserId, @Views, @VaultAdds, @ImageUrl, @ArticleUrl); SELECT LAST_INSERT_ID()", new
                         {
                             Keep.Name,
                             Keep.UserId,
@@ -43,8 +43,22 @@ namespace keepr.Repositories
                             Keep.Published
                         });
             Keep.Id = id;
+            Keep.Published = true;
             return Keep;
 
+        }
+        public IEnumerable<Keep> GetKeepsByVaultId(int id)
+        {
+            Console.WriteLine("GET REQUEST ID: ", id);
+            return _db.Query<Keep>($@"SELECT * FROM vaultkeeps vk
+                                                    INNER JOIN keeps k ON k.id = vk.keepId 
+                                                    WHERE (vaultId = {id})", id);
+        }
+
+        public IEnumerable<Keep> GetKeepsByUserId(int id)
+        {
+            Console.WriteLine("GET REQUEST ID: ", id);
+            return _db.Query<Keep>($@"SELECT * FROM keeps WHERE (userId = {id})", id);
         }
 
         public Keep GetOneByIdAndUpdate(int id, Keep Keep)
