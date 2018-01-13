@@ -4,19 +4,22 @@
       <div class="navbar-header">
         <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
           aria-expanded="false">
-          <span class="sr-only">Toggle navigation</span>
+          <span class="sr-only">Toggle Navigation</span>
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
         <a class="navbar-brand" style="font-family: 'Abril Fatface', cursive">Keepr</a>
         <div class="text-right" v-if="activeUser.hasOwnProperty('username')">
-          <p class="navbar-text">Welcome {{activeUser.username}}</p>
+          <p class="navbar-text">Welcome, {{activeUser.username}}</p>
+          <router-link :to="{name: 'Dashboard'}">
+            <button type="button" class="btn btn-primary navbar-btn dashboard-btn">Dashboard</button>
+          </router-link>
           <button type="button" class="btn btn-danger navbar-btn logout-btn" @click="logout">Logout</button>
         </div>
         <div class="text-right" v-else>
           <button type="button" class="btn btn-primary navbar-btn " data-toggle="modal" data-target="#login">Login</button>
-          <button type="button" class="btn btn-success navbar-btn" data-toggle="modal" data-target="#signUp">Sign-up</button>
+          <button type="button" class="btn btn-success navbar-btn" data-toggle="modal" data-target="#signUp">Signup</button>
         </div>
       </div>
 
@@ -89,8 +92,8 @@
                 <input type="password" name="password" maxlength="20" class="form-control" placeholder="password" required v-model="signUp.password">
               </div>
               <div class="form-group">
-                <label for="reEnterPassword">Re-enter Password:</label>
-                <input type="password" name="reEnterPassword" maxlength="20" class="form-control" placeholder="Re Enter Password" v-model="signUp.rPassword">
+                <label for="reEnterPassword">Confirm Password:</label>
+                <input type="password" name="reEnterPassword" maxlength="20" class="form-control" placeholder="Password" v-model="signUp.rPassword">
               </div>
               <div class="form-group">
                 <button class="btn btn-submit btn-success" data-dismiss="modal" type="submit" @click="submitRegister">Submit</button>

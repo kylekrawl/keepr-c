@@ -102,6 +102,7 @@ var store = new vuex.Store({
         getKeepsInVault({ commit, dispatch }, payload) {
             api(`keeps/vaults/${payload.endpoint}`)
                 .then(res => {
+                    console.log('endpoint: ', payload.endpoint)
                     commit('setKeeps', { data: res.data })
                 })
                 .catch(err => {
@@ -112,7 +113,9 @@ var store = new vuex.Store({
         getUserKeeps({ commit, dispatch }, payload) {
             api(`keeps/users/${payload.endpoint}`)
                 .then(res => {
+                    console.log('endpoint: ', payload.endpoint)
                     commit('setKeeps', { data: res.data })
+                    dispatch('authenticate')
                 })
                 .catch(err => {
                     commit('handleError', err)
@@ -123,6 +126,7 @@ var store = new vuex.Store({
             api(`vaults/users/${payload.endpoint}`)
                 .then(res => {
                     commit('setVaults', { data: res.data })
+                    dispatch('authenticate')
                 })
                 .catch(err => {
                     commit('handleError', err)

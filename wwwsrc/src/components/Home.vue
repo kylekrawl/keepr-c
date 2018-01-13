@@ -1,6 +1,10 @@
 <template>
   <div class="home container-fluid text-center">
       <h1>Keepr</h1>
+      <div class="keep col-sm-3" v-for="keep in keeps">
+        <h2>{{keep.name}}</h2>
+        <h4>{{keep.imageUrl}}</h4>
+      </div>
   </div>
 </template>
 
@@ -17,11 +21,14 @@
     },
     mounted() {
       this.$store.dispatch('authenticate')
-      this.$store.dispatch('authenticate')
+      this.$store.dispatch('getAllKeeps')
     },
     computed: {
       activeUser() {
         return this.$store.state.activeUser
+      },
+      keeps() {
+        return this.$store.state.keeps
       }
     },
     methods: {
@@ -32,5 +39,7 @@
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style>
-  
+  .keep {
+    border: 1px solid #000;
+  }
 </style>
