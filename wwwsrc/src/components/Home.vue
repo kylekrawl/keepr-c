@@ -19,7 +19,7 @@
           <div class="modal-body">
             <div class="row" v-for="vault in vaults">
               <h5 class="pull-left">{{vault.name}}</h5>
-              <button type="button" class="btn btn-success pull-right" data-dismiss="modal" @click="addKeepToVault(activeKeep.id, vault.id)">+</button>
+              <button type="button" class="btn btn-success pull-right" data-dismiss="modal" @click="addKeepToVault(activeKeep, vault.id)">+</button>
             </div>
           </div>
           <div class="modal-footer">
@@ -40,7 +40,7 @@
             <div class="row">
               <div class="col-sm-12">
                 <img class="img-responsive text-center" :src="activeKeep.imageUrl" alt="">
-                <h5>Views: {{activeKeep.views}}</h5>
+                <h5>Views: {{activeKeep.views + 1}}</h5>
                 <h5>Adds: {{activeKeep.vaultAdds}}</h5>
               </div>
             </div>
@@ -85,8 +85,9 @@
       }
     },
     methods: {
-      addKeepToVault(keepId, vaultId) {
-        this.$store.dispatch('addKeepToVault', { keepId, vaultId })
+      addKeepToVault(keep, vaultId) {
+        this.incrementKeepVaultAdds(keep)
+        this.$store.dispatch('addKeepToVault', { keepId: keep.id, vaultId })
       },
       getActiveKeep(id) {
         this.$store.dispatch('getActiveKeep', { id })
@@ -102,6 +103,18 @@
           published: keep.published
         }
         this.$store.dispatch('editKeep', { data: updatedKeep, id: keep.id })
+      },
+      incrementKeepVaultAdds() {
+        var updatedKeep = {
+          name: this.activeKeep.name,
+          userId: this.activeKeep.userId,
+          views: this.activeKeep.views,
+          vaultAdds: this.activeKeep.vaultAdds + 1,
+          imageUrl: this.activeKeep.imageUrl,
+          articleUrl: this.activeKeep.articleUrl,
+          published: this.activeKeep.published
+        }
+        this.$store.dispatch('editKeep', { data: updatedKeep, id: this.activeKeep.id })
       },
       viewKeep(keep) {
         this.getActiveKeep(keep.id)
