@@ -211,6 +211,16 @@ var store = new vuex.Store({
                 })
         },
 
+        editKeep({ commit, dispatch }, payload) {
+            api.put(`keeps/${payload.id}`, payload.data)
+                .then(res => {
+                    dispatch('getAllKeeps')
+                })
+                .catch(err => {
+                    commit('handleError', err)
+                })
+        },
+
         removeKeep({ commit, dispatch }, payload) {
             api.delete(`keeps/${payload.id}`)
                 .then(res => {

@@ -11,7 +11,7 @@
             <div class="keep col-sm-3" v-for="keep in keeps">
                 <h2>{{keep.name}}</h2>
                 <img class="img-responsive" :src="keep.imageUrl" alt="">
-                <button type="button" class="btn btn-danger" @click="removeKeep(keep.id)">Remove</button>
+                <button type="button" class="btn btn-danger" @click="removeKeep(keep.id)">-</button>
             </div>
         </div>
         <div class="row">
@@ -22,7 +22,7 @@
                 <router-link :to="{path: 'my-vaults/' + vault.id}">
                     <button type="button" class="btn btn-primary">View</button>
                 </router-link>
-                <button type="button" class="btn btn-danger" @click="removeVault(vault.id)">Remove</button>
+                <button type="button" class="btn btn-danger" @click="removeVault(vault.id)">-</button>
             </div>
         </div>
 
