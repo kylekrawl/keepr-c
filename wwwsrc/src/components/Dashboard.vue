@@ -25,9 +25,9 @@
 
         },
         mounted() {
-            this.$store.dispatch('authenticate')
-            this.$store.dispatch('getUserKeeps', { endpoint: this.activeUser.id })
-            this.$store.dispatch('getUserVaults', { endpoint: this.activeUser.id })
+            //this.$store.dispatch('authenticate')
+            this.$store.dispatch('getUserKeeps')
+            this.$store.dispatch('getUserVaults')
         },
         computed: {
             activeUser() {

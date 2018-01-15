@@ -47,7 +47,7 @@ namespace keepr.Repositories
             return Keep;
 
         }
-        public IEnumerable<Keep> GetKeepsByVaultId(int id)
+        public IEnumerable<Keep> GetByVaultId(int id)
         {
             Console.WriteLine("GET REQUEST ID: ", id);
             return _db.Query<Keep>($@"SELECT * FROM vaultkeeps vk
@@ -55,7 +55,7 @@ namespace keepr.Repositories
                                                     WHERE (vaultId = {id})", id);
         }
 
-        public IEnumerable<Keep> GetKeepsByUserId(int id)
+        public IEnumerable<Keep> GetByUserId(int id)
         {
             Console.WriteLine("GET REQUEST ID: ", id);
             return _db.Query<Keep>($@"SELECT * FROM keeps WHERE (userId = {id})", id);

@@ -110,10 +110,9 @@ var store = new vuex.Store({
                 })
         },
 
-        getUserKeeps({ commit, dispatch }, payload) {
-            api(`keeps/users/${payload.endpoint}`)
+        getUserKeeps({ commit, dispatch }) {
+            api(`keeps/manage`)
                 .then(res => {
-                    console.log('endpoint: ', payload.endpoint)
                     commit('setKeeps', { data: res.data })
                     dispatch('authenticate')
                 })
@@ -122,8 +121,8 @@ var store = new vuex.Store({
                 })
         },
 
-        getUserVaults({ commit, dispatch }, payload) {
-            api(`vaults/users/${payload.endpoint}`)
+        getUserVaults({ commit, dispatch }) {
+            api(`vaults/manage`)
                 .then(res => {
                     commit('setVaults', { data: res.data })
                     dispatch('authenticate')

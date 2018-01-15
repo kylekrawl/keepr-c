@@ -13,9 +13,11 @@ namespace keepr.Controllers
     public class KeepsController : Controller
     {
         private readonly KeepRepository db;
-        public KeepsController(KeepRepository KeepRepo)
+        private readonly UserRepository users;
+        public KeepsController(KeepRepository KeepRepo, UserRepository UserRepo)
         {
             db = KeepRepo;
+            users = UserRepo;
         }
 
         // GET api/values
@@ -37,14 +39,34 @@ namespace keepr.Controllers
         public IEnumerable<Keep> GetByVault(int id)
         {
             Console.WriteLine("GetByVault called!");
-            return db.GetKeepsByVaultId(id);
+            return db.GetByVaultId(id);
         }
 
         [HttpGet("users/{id}")]
         public IEnumerable<Keep> GetByUser(int id)
         {
-            Console.WriteLine("GetByUser called!");
-            return db.GetKeepsByUserId(id);
+            Console.WriteLine("GetKeepsByUser called!");
+            return db.GetByUserId(id);
+        }
+
+        [Authorize]
+        [HttpGet("manage")]
+        public IEnumerable<Keep> GetByActiveUser()
+        {
+            Console.WriteLine("GetKeepsByActiveUser called!");
+
+            var user = HttpContext.User;
+            var id = user.Identity.Name;
+
+            UserReturnModel activeUser = null;
+
+            if (id != null)
+            {
+                activeUser = users.GetUserById(id);
+            }
+            var uid = activeUser.Id;
+
+            return db.GetByUserId(uid);
         }
 
         // POST api/values
