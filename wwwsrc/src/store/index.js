@@ -38,6 +38,9 @@ var store = new vuex.Store({
         setActiveKeep(state, payload) {
             state.activeKeep = payload.data
         },
+        setActiveVault(state, payload) {
+            state.activeVault = payload.data
+        },
         setKeeps(state, payload) {
             state.keeps = payload.data
         },
@@ -113,10 +116,19 @@ var store = new vuex.Store({
                 })
         },
 
-        getKeepsInVault({ commit, dispatch }, payload) {
-            api(`keeps/vaults/${payload.endpoint}`)
+        getActiveVault({ commit, dispatch }, payload) {
+            api(`vaults/${payload.id}`)
                 .then(res => {
-                    console.log('endpoint: ', payload.endpoint)
+                    commit('setActiveVault', { data: res.data })
+                })
+                .catch(err => {
+                    commit('handleError', err)
+                })
+        },
+
+        getKeepsInVault({ commit, dispatch }, payload) {
+            api(`keeps/vaults/${payload.id}`)
+                .then(res => {
                     commit('setKeeps', { data: res.data })
                 })
                 .catch(err => {

@@ -19,6 +19,9 @@
             <div class="vault col-sm-3" v-for="vault in vaults">
                 <h2>{{vault.name}}</h2>
                 <h4>{{vault.description}}</h4>
+                <router-link :to="{path: 'my-vaults/' + vault.id}">
+                    <button type="button" class="btn btn-primary">View</button>
+                </router-link>
                 <button type="button" class="btn btn-danger" @click="removeVault(vault.id)">Remove</button>
             </div>
         </div>
