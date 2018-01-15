@@ -3,7 +3,7 @@
       <h1>Keepr</h1>
       <div class="keep col-sm-3" v-for="keep in keeps">
         <h2>{{keep.name}}</h2>
-        <h4>{{keep.imageUrl}}</h4>
+        <img class="img-responsive" :src="keep.imageUrl" alt="">
       </div>
   </div>
 </template>

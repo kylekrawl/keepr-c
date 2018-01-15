@@ -44,6 +44,8 @@ namespace keepr.Repositories
                         });
             Keep.Id = id;
             Keep.Published = true;
+            Keep.Views = 0;
+            Keep.VaultAdds = 0;
             return Keep;
 
         }

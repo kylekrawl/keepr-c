@@ -135,9 +135,9 @@ var store = new vuex.Store({
         // REGISTERED USERS ONLY:
 
         createKeep({ commit, dispatch }, payload) {
-            api.post('keeps', payload.data)
+            api.post('keeps', payload)
                 .then(res => {
-                    dispatch('getKeeps')
+                    dispatch('getUserKeeps')
                 })
                 .catch(err => {
                     commit('handleError', err)
@@ -145,9 +145,9 @@ var store = new vuex.Store({
         },
 
         createVault({ commit, dispatch }, payload) {
-            api.post('vaults', payload.data)
+            api.post('vaults', payload)
                 .then(res => {
-                    dispatch('getUserVaults', { endpoint: payload.endpoint })
+                    dispatch('getUserVaults')
                 })
                 .catch(err => {
                     commit('handleError', err)
@@ -174,10 +174,10 @@ var store = new vuex.Store({
                 })
         },
 
-        deleteUserKeep({ commit, dispatch }, payload) {
-            api.delete(`keeps/${payload.endpoint}`)
+        removeKeep({ commit, dispatch }, payload) {
+            api.delete(`keeps/${payload.id}`)
                 .then(res => {
-                    dispatch('getUserKeeps', { endpoint: payload.endpoint })
+                    dispatch('getUserKeeps')
                 })
                 .catch(err => {
                     commit('handleError', err)

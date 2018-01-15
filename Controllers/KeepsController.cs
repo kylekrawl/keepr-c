@@ -74,6 +74,18 @@ namespace keepr.Controllers
         [HttpPost]
         public Keep Post([FromBody]Keep Keep)
         {
+
+            var user = HttpContext.User;
+            var id = user.Identity.Name;
+
+            UserReturnModel activeUser = null;
+
+            if (id != null)
+            {
+                activeUser = users.GetUserById(id);
+            }
+            Keep.UserId = activeUser.Id;
+
             return db.Add(Keep);
         }
 

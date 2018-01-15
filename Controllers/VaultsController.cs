@@ -60,6 +60,17 @@ namespace keepr.Controllers
         [HttpPost]
         public Vault Post([FromBody]Vault Vault)
         {
+            var user = HttpContext.User;
+            var id = user.Identity.Name;
+
+            UserReturnModel activeUser = null;
+
+            if (id != null)
+            {
+                activeUser = users.GetUserById(id);
+            }
+            Vault.UserId = activeUser.Id;
+
             return db.Add(Vault);
         }
 
