@@ -68,10 +68,10 @@ namespace keepr.Controllers
 
         // DELETE api/values/5
         [Authorize]
-        [HttpDelete("{id}")]
-        public string Delete(int id)
+        [HttpDelete("vaults/{vaultId}/keeps/{keepId}")]
+        public string Delete(int vaultId, int keepId)
         {
-            return db.FindByIdAndRemove(id);
+            return db.FindByRelatedIdsAndRemove(keepId, vaultId);
         }
     }
 }

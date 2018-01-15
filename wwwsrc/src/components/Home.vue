@@ -19,7 +19,7 @@
           <div class="modal-body">
             <div class="row" v-for="vault in vaults">
               <h5 class="pull-left">{{vault.name}}</h5>
-              <button type="button" class="btn btn-success pull-right" data-dismiss="modal" @click="addToVault(activeKeep.id, vault.id)">+</button>
+              <button type="button" class="btn btn-success pull-right" data-dismiss="modal" @click="addKeepToVault(activeKeep.id, vault.id)">+</button>
             </div>
           </div>
           <div class="modal-footer">
@@ -62,7 +62,7 @@
       }
     },
     methods: {
-      addToVault(keepId, vaultId) {
+      addKeepToVault(keepId, vaultId) {
         this.$store.dispatch('addKeepToVault', { keepId, vaultId })
       },
       getActiveKeep(id) {

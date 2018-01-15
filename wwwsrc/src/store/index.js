@@ -190,6 +190,17 @@ var store = new vuex.Store({
                 })
         },
 
+        removeKeepFromVault({ commit, dispatch }, payload) {
+            api.delete(`vaultkeeps/vaults/${payload.vaultId}/keeps/${payload.keepId}`, payload)
+                .then(res => {
+                    console.log("Successfully removed keep from vault.")
+                    dispatch("getKeepsInVault", { id: payload.vaultId })
+                })
+                .catch(err => {
+                    commit('handleError', err)
+                })
+        },
+
         editVault({ commit, dispatch }, payload) {
             api.put(`vaults/${payload.endpoint}`, payload.data)
                 .then(res => {
