@@ -31,8 +31,8 @@ namespace keepr.Repositories
 
         public Keep Add(Keep Keep)
         {
-            int id = _db.ExecuteScalar<int>("INSERT INTO keeps (Name, UserId, Views, VaultAdds, ImageUrl, ArticleUrl)"
-                        + $" VALUES(@Name, @UserId, @Views, @VaultAdds, @ImageUrl, @ArticleUrl); SELECT LAST_INSERT_ID()", new
+            int id = _db.ExecuteScalar<int>("INSERT INTO keeps (Name, UserId, Views, VaultAdds, ImageUrl, ArticleUrl, Published)"
+                        + $" VALUES(@Name, @UserId, @Views, @VaultAdds, @ImageUrl, @ArticleUrl, @Published); SELECT LAST_INSERT_ID()", new
                         {
                             Keep.Name,
                             Keep.UserId,

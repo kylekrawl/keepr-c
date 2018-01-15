@@ -13,8 +13,10 @@ namespace keepr.Controllers
     public class VaultKeepsController : Controller
     {
         private readonly VaultKeepRepository db;
-        public VaultKeepsController(VaultKeepRepository VaultKeepRepo)
+        private readonly UserRepository users;
+        public VaultKeepsController(VaultKeepRepository VaultKeepRepo, UserRepository UserRepo)
         {
+            users = UserRepo;
             db = VaultKeepRepo;
         }
 
@@ -38,6 +40,17 @@ namespace keepr.Controllers
         [HttpPost]
         public VaultKeep Post([FromBody]VaultKeep VaultKeep)
         {
+            var user = HttpContext.User;
+            var id = user.Identity.Name;
+
+            UserReturnModel activeUser = null;
+
+            if (id != null)
+            {
+                activeUser = users.GetUserById(id);
+            }
+            VaultKeep.UserId = activeUser.Id;
+
             return db.Add(VaultKeep);
         }
 

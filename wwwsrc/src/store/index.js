@@ -23,6 +23,7 @@ var store = new vuex.Store({
     state: {
         error: {},
         activeUser: {},
+        activeKeep: {},
         activeVault: {},
         vaults: [],
         keeps: []
@@ -33,6 +34,9 @@ var store = new vuex.Store({
         },
         setActiveUser(state, user) {
             state.activeUser = user
+        },
+        setActiveKeep(state, payload) {
+            state.activeKeep = payload.data
         },
         setKeeps(state, payload) {
             state.keeps = payload.data
@@ -99,6 +103,16 @@ var store = new vuex.Store({
                 })
         },
 
+        getActiveKeep({ commit, dispatch }, payload) {
+            api(`keeps/${payload.id}`)
+                .then(res => {
+                    commit('setActiveKeep', { data: res.data })
+                })
+                .catch(err => {
+                    commit('handleError', err)
+                })
+        },
+
         getKeepsInVault({ commit, dispatch }, payload) {
             api(`keeps/vaults/${payload.endpoint}`)
                 .then(res => {
@@ -154,18 +168,18 @@ var store = new vuex.Store({
                 })
         },
 
-        editVault({ commit, dispatch }, payload) {
-            api.put(`vaults/${payload.endpoint}`, payload.data)
+        addKeepToVault({ commit, dispatch }, payload) {
+            api.post('vaultkeeps', payload)
                 .then(res => {
-                    dispatch('getUserVaults', { endpoint: payload.endpoint })
+                    console.log("Successfully added keep to vault.")
                 })
                 .catch(err => {
                     commit('handleError', err)
                 })
         },
 
-        deleteUserVault({ commit, dispatch }, payload) {
-            api.delete(`vaults/${payload.endpoint}`)
+        editVault({ commit, dispatch }, payload) {
+            api.put(`vaults/${payload.endpoint}`, payload.data)
                 .then(res => {
                     dispatch('getUserVaults', { endpoint: payload.endpoint })
                 })
@@ -178,6 +192,16 @@ var store = new vuex.Store({
             api.delete(`keeps/${payload.id}`)
                 .then(res => {
                     dispatch('getUserKeeps')
+                })
+                .catch(err => {
+                    commit('handleError', err)
+                })
+        },
+
+        removeVault({ commit, dispatch }, payload) {
+            api.delete(`vaults/${payload.id}`)
+                .then(res => {
+                    dispatch('getUserVaults')
                 })
                 .catch(err => {
                     commit('handleError', err)

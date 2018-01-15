@@ -19,6 +19,7 @@
             <div class="vault col-sm-3" v-for="vault in vaults">
                 <h2>{{vault.name}}</h2>
                 <h4>{{vault.description}}</h4>
+                <button type="button" class="btn btn-danger" @click="removeVault(vault.id)">Remove</button>
             </div>
         </div>
 
@@ -135,6 +136,9 @@
             },
             removeKeep(id) {
                 this.$store.dispatch('removeKeep', { id })
+            },
+            removeVault(id) {
+                this.$store.dispatch('removeVault', { id })
             }
         }
     }
