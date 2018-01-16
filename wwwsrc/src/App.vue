@@ -2,6 +2,7 @@
   <div id="app" class="container-fluid">
     <nav class="navbar navbar-inverse">
       <div class="navbar-header">
+        <!--
         <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
           aria-expanded="false">
           <span class="sr-only">Toggle Navigation</span>
@@ -9,21 +10,28 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" style="font-family: 'Abril Fatface', cursive">Keepr</a>
+      -->
+        <router-link :to="{name: 'Home'}">
+          <a class="navbar-brand main-font">Keepr</a>
+        </router-link>
         <div class="text-right" v-if="activeUser.hasOwnProperty('username')">
           <p class="navbar-text">Welcome, {{activeUser.username}}</p>
+          <router-link :to="{name: 'Home'}">
+            <button type="button" class="btn btn-primary navbar-btn dashboard-btn">Home</button>
+          </router-link>
           <router-link :to="{name: 'Dashboard'}">
             <button type="button" class="btn btn-primary navbar-btn dashboard-btn">Dashboard</button>
           </router-link>
           <button type="button" class="btn btn-danger navbar-btn logout-btn" @click="logout">Logout</button>
         </div>
         <div class="text-right" v-else>
-          <button type="button" class="btn btn-primary navbar-btn " data-toggle="modal" data-target="#login">Login</button>
+          <button type="button" class="btn btn-primary navbar-btn" data-toggle="modal" data-target="#login">Login</button>
           <button type="button" class="btn btn-success navbar-btn" data-toggle="modal" data-target="#signUp">Signup</button>
         </div>
       </div>
 
       <!-- MENU DROWDOWN -->
+      <!--
       <div class="collapse navbar-collapse text-center" id="bs-example-navbar-collapse-1">
         <ul>
           <li>
@@ -35,7 +43,9 @@
         <ul class="nav navbar-nav navbar-right">
         </ul>
       </div>
+    -->
     </nav>
+
     <div id="login" class="modal fade" role="dialog">
       <div class="modal-dialog">
         <!-- Modal content-->
@@ -169,8 +179,8 @@
 </script>
 
 <style>
-  .info-text {
-    font-family: 'Source Sans Pro', sans-serif;
+  .main-font {
+    font-family: 'Modern Antiqua', cursive;
   }
 
   .btn-default {

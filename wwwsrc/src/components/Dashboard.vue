@@ -2,27 +2,28 @@
     <div class="home container-fluid text-center">
         <div class="row">
             <div class="col-sm-12">
+                <h1 class="main-font">Dashboard</h1>
                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#create-vault-modal">New Vault</button>
                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#create-keep-modal">New Keep</button>
             </div>
         </div>
         <div class="row">
-            <h1>My Keeps</h1>
+            <h2>My Keeps</h2>
             <div class="keep col-sm-3" v-for="keep in keeps">
                 <h2>{{keep.name}}</h2>
                 <img class="img-responsive" :src="keep.imageUrl" alt="">
-                <button type="button" class="btn btn-danger" @click="removeKeep(keep.id)">-</button>
+                <button type="button" class="btn btn-danger" @click="removeKeep(keep.id)"><span class="glyphicon glyphicon-trash"></span></button>
             </div>
         </div>
         <div class="row">
-            <h1>My Vaults</h1>
+            <h2>My Vaults</h2>
             <div class="vault col-sm-3" v-for="vault in vaults">
                 <h2>{{vault.name}}</h2>
                 <h4>{{vault.description}}</h4>
                 <router-link :to="{path: 'my-vaults/' + vault.id}">
-                    <button type="button" class="btn btn-primary">View</button>
+                    <button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-eye-open"></span></button>
                 </router-link>
-                <button type="button" class="btn btn-danger" @click="removeVault(vault.id)">-</button>
+                <button type="button" class="btn btn-danger" @click="removeVault(vault.id)"><span class="glyphicon glyphicon-trash"></span></button>
             </div>
         </div>
 
