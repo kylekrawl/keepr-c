@@ -41,6 +41,12 @@ namespace keepr.Controllers
             return db.GetAllPublic();
         }
 
+        [HttpGet("public/{query}")]
+        public IEnumerable<Keep> GetAllPublicByQuery(string query)
+        {
+            return db.GetAllPublicByQuery(query);
+        }
+
         [HttpGet("vaults/{id}")]
         public IEnumerable<Keep> GetByVault(int id)
         {

@@ -1,17 +1,37 @@
 <template>
   <div class="home container-fluid text-center">
-    <h1 class="main-font">Keepr</h1>
-    <div class="keep col-sm-3 well" v-for="keep in keeps">
-      <div class="image-wrapper">
-        <img class="img-responsive text-center keep-image" :src="keep.imageUrl" alt="">
-        <div class="overlay-content">
-          <button title="Keep" type="button" class="btn btn-alt btn-icon" data-toggle="modal" data-target="#add-to-vault-modal"><span class="custom-icon main-font">K</span></button>
-          <button title="View" type="button" class="btn btn-primary btn-icon" data-toggle="modal" data-target="#view-keep-modal" @click="viewKeep(keep)"><span class="glyphicon glyphicon-zoom-in"></span></button>
-        </div>
+    <h1 class="main-font main-title">Keepr</h1>
+    <div class="row">
+      <div class="col-sm-offset-4 col-sm-4">
+          <form class="form-inline search-bar" @submit.prevent="searchQuery">
+              <div class="form-group">
+                  <input type="text" class="form-control" name="query" placeholder="Search Keeps" v-model="query">
+                  <button type="submit" class="btn btn-alt btn-submit" id="search-button"><span class="glyphicon glyphicon-search"></span></button>
+              </div>
+          </form>
       </div>
-      <h3>{{keep.name}}</h3>
-      <button title="Keep" type="button" class="btn btn-alt btn-icon" data-toggle="modal" data-target="#add-to-vault-modal"><span class="custom-icon main-font">K</span></button>
-      <button title="View" type="button" class="btn btn-primary btn-icon" data-toggle="modal" data-target="#view-keep-modal" @click="viewKeep(keep)"><span class="glyphicon glyphicon-zoom-in"></span></button>
+    </div>
+    <div class="row">
+      <div class="keep col-sm-3 well" v-for="keep in keeps">
+        <div class="image-wrapper">
+          <img class="img-responsive text-center keep-image" :src="keep.imageUrl" alt="">
+          <div class="overlay-content">
+            <button title="Keep" type="button" class="btn btn-alt btn-icon" data-toggle="modal" data-target="#add-to-vault-modal">
+              <span class="custom-icon main-font">K</span>
+            </button>
+            <button title="View" type="button" class="btn btn-primary btn-icon" data-toggle="modal" data-target="#view-keep-modal" @click="viewKeep(keep)">
+              <span class="glyphicon glyphicon-zoom-in"></span>
+            </button>
+          </div>
+        </div>
+        <h2>{{keep.name}}</h2>
+        <button title="Keep" type="button" class="btn btn-alt btn-icon" data-toggle="modal" data-target="#add-to-vault-modal">
+          <span class="custom-icon main-font">K</span>
+        </button>
+        <button title="View" type="button" class="btn btn-primary btn-icon" data-toggle="modal" data-target="#view-keep-modal" @click="viewKeep(keep)">
+          <span class="glyphicon glyphicon-zoom-in"></span>
+        </button>
+      </div>
     </div>
 
 
@@ -26,7 +46,9 @@
           <div class="modal-body">
             <div class="row" v-for="vault in vaults">
               <h5 class="pull-left">{{vault.name}}</h5>
-              <button title="Add to Vault" type="button" class="btn btn-success pull-right" data-dismiss="modal" @click="addKeepToVault(activeKeep, vault.id)"><span class="glyphicon glyphicon-plus-sign"></span></button>
+              <button title="Add to Vault" type="button" class="btn btn-success pull-right" data-dismiss="modal" @click="addKeepToVault(activeKeep, vault.id)">
+                <span class="glyphicon glyphicon-plus-sign"></span>
+              </button>
             </div>
           </div>
           <div class="modal-footer">
@@ -66,7 +88,7 @@
     name: 'Home',
     data() {
       return {
-
+        query: ""
       }
     },
     components: {
@@ -126,6 +148,10 @@
       viewKeep(keep) {
         this.getActiveKeep(keep.id)
         this.incrementKeepViews(keep)
+      },
+      searchQuery() {
+        var query = this.query.split(" ").join("-")
+        this.$store.dispatch('getPublicKeepsByQuery', { data: query })
       }
     }
 
@@ -134,5 +160,4 @@
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style>
-
 </style>

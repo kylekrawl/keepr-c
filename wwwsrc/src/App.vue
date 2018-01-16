@@ -24,11 +24,10 @@
 
     <div id="login" class="modal fade" role="dialog">
       <div class="modal-dialog">
-        <!-- Modal content-->
         <div class="modal-content">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal">&times;</button>
-            <h4 class="modal-title">Sign in to your account</h4>
+            <h4 class="modal-title">Login to Your Account</h4>
           </div>
           <div class="modal-body">
             <form id="login" class="form">
@@ -51,16 +50,15 @@
         </div>
       </div>
     </div>
-    <!-- SIGN UP MODAL -->
+
     <div id="signUp" class="modal fade" role="dialog">
       <div class="modal-dialog">
-        <!-- Modal content-->
         <div class="modal-content">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal">&times;</button>
             <h4 class="modal-title">Create an Account</h4>
             <p v-if="error">
-              <b>Your Passwords Do Not Match</b>
+              <b>Passwords must match.</b>
             </p>
           </div>
           <div class="modal-body">
@@ -90,10 +88,11 @@
             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
           </div>
         </div>
-
       </div>
     </div>
+
     <router-view/>
+
   </div>
 </template>
 
@@ -135,7 +134,6 @@
         }
       },
       submitRegister() {
-        debugger
         if (this.signUp.password == this.signUp.rPassword) {
           this.$store.dispatch('register', {
             username: this.signUp.userName,
@@ -144,7 +142,6 @@
           })
         } else {
           this.error = true
-          console.error({ error: "Passwords Do Not Match" })
         }
       },
       logout() {
@@ -162,8 +159,22 @@
     background-size: cover;
   }
 
+  .search-bar {
+    margin-bottom: 40px;
+  }
+
   .keep {
     border: 1px solid #404040;
+  }
+
+  .main-title {
+    font-size: 4em;
+    margin-bottom: 40px;
+  }
+
+  .secondary-title {
+    font-size: 3em;
+    margin: 40px 0 40px;
   }
 
   .btn-primary {
@@ -176,15 +187,15 @@
     border: 1px solid #ffcc00;
   }
 
-  .btn-primary:hover, 
-  .btn-primary:active, 
+  .btn-primary:hover,
+  .btn-primary:active,
   .btn-primary:focus {
     background: #404040;
     border: 1px solid #404040;
   }
 
-  .btn-alt:hover, 
-  .btn-alt:active, 
+  .btn-alt:hover,
+  .btn-alt:active,
   .btn-alt:focus {
     background: #e6b800;
     border: 1px solid #e6b800;

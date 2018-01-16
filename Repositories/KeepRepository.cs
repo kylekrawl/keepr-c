@@ -28,6 +28,36 @@ namespace keepr.Repositories
             return _db.Query<Keep>("SELECT * FROM keeps WHERE published = true");
         }
 
+        public IEnumerable<Keep> GetAllPublicByQuery(string query)
+        {
+            string querySubstring = " AND WHERE name LIKE ";
+            List<string> queryTerms = new List<string>(){};
+            if (query.Length > 0)
+            {
+                string term = "";
+                for (var i = 0; i < query.Length; i++)
+                {
+                    if (query[i] != '-' && term != "")
+                    {
+                        term += query[i];
+                    } else {
+                        term = "";
+                        if (querySubstring == " AND WHERE name LIKE ") {
+                            querySubstring += $"'%{term}%'";
+                        } else {
+                            querySubstring += $" OR '%{term}%'";
+                        }
+                        
+                    }
+                }
+            }
+            if (querySubstring == " AND WHERE name LIKE ") {
+                querySubstring = "";
+            }
+            Console.WriteLine($"SELECT * FROM keeps WHERE published = true{querySubstring}");
+            return _db.Query<Keep>($"SELECT * FROM keeps WHERE published = true{querySubstring}", querySubstring);
+        }
+
         public Keep GetById(int id)
         {
             Console.WriteLine("GET REQUEST ID: ", id);
