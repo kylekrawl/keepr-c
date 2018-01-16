@@ -10,9 +10,19 @@
         <div class="row">
             <h2>My Keeps</h2>
             <div class="keep col-sm-3" v-for="keep in keeps">
-                <h2>{{keep.name}}</h2>
                 <img class="img-responsive" :src="keep.imageUrl" alt="">
-                <button type="button" class="btn btn-danger" @click="removeKeep(keep.id)"><span class="glyphicon glyphicon-trash"></span></button>
+                <h2>{{keep.name}}</h2>
+                <p v-if="keep.published">Public</p>
+                <p v-else>Private</p>
+                <button v-if="!keep.published" type="button" class="btn btn-primary" @click="publishKeep(keep)">
+                    <span class="glyphicon glyphicon-eye-open"></span>
+                </button>
+                <button v-else type="button" class="btn btn-primary" @click="unpublishKeep(keep)">
+                    <span class="glyphicon glyphicon glyphicon-eye-close"></span>
+                </button>
+                <button v-if="!keep.published" type="button" class="btn btn-danger" @click="removeKeep(keep.id)">
+                    <span class="glyphicon glyphicon-trash"></span>
+                </button>
             </div>
         </div>
         <div class="row">
@@ -21,9 +31,13 @@
                 <h2>{{vault.name}}</h2>
                 <h4>{{vault.description}}</h4>
                 <router-link :to="{path: 'my-vaults/' + vault.id}">
-                    <button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-eye-open"></span></button>
+                    <button type="button" class="btn btn-primary">
+                        <span class="glyphicon glyphicon-eye-open"></span>
+                    </button>
                 </router-link>
-                <button type="button" class="btn btn-danger" @click="removeVault(vault.id)"><span class="glyphicon glyphicon-trash"></span></button>
+                <button type="button" class="btn btn-danger" @click="removeVault(vault.id)">
+                    <span class="glyphicon glyphicon-trash"></span>
+                </button>
             </div>
         </div>
 
@@ -143,6 +157,30 @@
             },
             removeVault(id) {
                 this.$store.dispatch('removeVault', { id })
+            },
+            publishKeep(keep) {
+                var updatedKeep = {
+                    name: keep.name,
+                    userId: keep.userId,
+                    views: keep.views,
+                    vaultAdds: keep.vaultAdds,
+                    imageUrl: keep.imageUrl,
+                    articleUrl: keep.articleUrl,
+                    published: true
+                }
+                this.$store.dispatch('editKeep', { data: updatedKeep, id: keep.id })
+            },
+            unpublishKeep(keep) {
+                var updatedKeep = {
+                    name: keep.name,
+                    userId: keep.userId,
+                    views: keep.views,
+                    vaultAdds: keep.vaultAdds,
+                    imageUrl: keep.imageUrl,
+                    articleUrl: keep.articleUrl,
+                    published: false
+                }
+                this.$store.dispatch('editKeep', { data: updatedKeep, id: keep.id })
             }
         }
     }

@@ -23,6 +23,11 @@ namespace keepr.Repositories
             return _db.Query<Keep>("SELECT * FROM keeps");
         }
 
+        public IEnumerable<Keep> GetAllPublic()
+        {
+            return _db.Query<Keep>("SELECT * FROM keeps WHERE published = true");
+        }
+
         public Keep GetById(int id)
         {
             Console.WriteLine("GET REQUEST ID: ", id);

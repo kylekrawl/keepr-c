@@ -106,6 +106,16 @@ var store = new vuex.Store({
                 })
         },
 
+        getPublicKeeps({ commit, dispatch }, payload) {
+            api('keeps/public')
+                .then(res => {
+                    commit('setKeeps', { data: res.data })
+                })
+                .catch(err => {
+                    commit('handleError', err)
+                })
+        },
+
         getActiveKeep({ commit, dispatch }, payload) {
             api(`keeps/${payload.id}`)
                 .then(res => {

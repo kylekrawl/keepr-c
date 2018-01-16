@@ -11,7 +11,7 @@
       </div>
       <h2>{{keep.name}}</h2>
       <button type="button" class="btn btn-success" data-toggle="modal" data-target="#add-to-vault-modal" @click="viewKeep(keep)"><span class="main-font">K</span></button>
-      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#view-keep-modal" @click="viewKeep(keep)"><span class="glyphicon glyphicon-eye-open"></span></button>
+      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#view-keep-modal" @click="viewKeep(keep)"><span class="glyphicon glyphicon-resize-full"></span></button>
     </div>
 
 
@@ -74,7 +74,7 @@
     },
     mounted() {
       this.$store.dispatch('authenticate')
-      this.$store.dispatch('getAllKeeps')
+      this.$store.dispatch('getPublicKeeps')
       this.$store.dispatch('getUserVaults')
     },
     computed: {
