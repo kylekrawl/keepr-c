@@ -3,15 +3,28 @@
         <div class="row">
             <div class="col-sm-12">
                 <h1 class="main-font">Dashboard</h1>
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#create-vault-modal">New Vault</button>
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#create-keep-modal">New Keep</button>
+                <button type="button" class="btn btn-primary btn-main" data-toggle="modal" data-target="#create-vault-modal">New Vault</button>
+                <button type="button" class="btn btn-primary btn-main" data-toggle="modal" data-target="#create-keep-modal">New Keep</button>
             </div>
         </div>
         <div class="row">
             <h2>My Keeps</h2>
             <div class="keep col-sm-3 well" v-for="keep in keeps">
-                <img class="img-responsive" :src="keep.imageUrl" alt="">
-                <h2>{{keep.name}}</h2>
+                <div class="image-wrapper">
+                    <img class="img-responsive text-center keep-image" :src="keep.imageUrl" alt="">
+                    <div class="overlay-content">
+                        <button title="Make Public" v-if="!keep.published" type="button" class="btn btn-primary btn-icon" @click="publishKeep(keep)">
+                            <span class="glyphicon glyphicon-eye-open"></span>
+                        </button>
+                        <button title="Make Private" v-else type="button" class="btn btn-primary btn-icon" @click="unpublishKeep(keep)">
+                            <span class="glyphicon glyphicon glyphicon-eye-close"></span>
+                        </button>
+                        <button title="Delete" v-if="!keep.published" type="button" class="btn btn-danger btn-icon" @click="removeKeep(keep.id)">
+                            <span class="glyphicon glyphicon-trash"></span>
+                        </button>
+                    </div>
+                </div>
+                <h3>{{keep.name}}</h3>
                 <p v-if="keep.published">Public</p>
                 <p v-else>Private</p>
                 <button title="Make Public" v-if="!keep.published" type="button" class="btn btn-primary btn-icon" @click="publishKeep(keep)">
@@ -24,6 +37,19 @@
                     <span class="glyphicon glyphicon-trash"></span>
                 </button>
             </div>
+
+            <!-- <div class="keep col-sm-3 well" v-for="keep in keeps">
+                    <div class="image-wrapper">
+                      <img class="img-responsive text-center keep-image" :src="keep.imageUrl" alt="">
+                      <div class="overlay-content">
+                        <button title="Keep" type="button" class="btn btn-alt btn-icon" data-toggle="modal" data-target="#add-to-vault-modal"><span class="custom-icon main-font">K</span></button>
+                        <button title="View" type="button" class="btn btn-primary btn-icon" data-toggle="modal" data-target="#view-keep-modal" @click="viewKeep(keep)"><span class="glyphicon glyphicon-zoom-in"></span></button>
+                      </div>
+                    </div>
+                    <h3>{{keep.name}}</h3>
+                    <button title="Keep" type="button" class="btn btn-alt btn-icon" data-toggle="modal" data-target="#add-to-vault-modal"><span class="custom-icon main-font">K</span></button>
+                    <button title="View" type="button" class="btn btn-primary btn-icon" data-toggle="modal" data-target="#view-keep-modal" @click="viewKeep(keep)"><span class="glyphicon glyphicon-zoom-in"></span></button>
+                  </div> -->
         </div>
         <div class="row">
             <h2>My Vaults</h2>

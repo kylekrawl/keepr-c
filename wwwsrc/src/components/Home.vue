@@ -5,12 +5,12 @@
       <div class="image-wrapper">
         <img class="img-responsive text-center keep-image" :src="keep.imageUrl" alt="">
         <div class="overlay-content">
-          <button title="Keep" type="button" class="btn btn-success btn-icon" data-toggle="modal" data-target="#add-to-vault-modal"><span class="custom-icon main-font">K</span></button>
+          <button title="Keep" type="button" class="btn btn-alt btn-icon" data-toggle="modal" data-target="#add-to-vault-modal"><span class="custom-icon main-font">K</span></button>
           <button title="View" type="button" class="btn btn-primary btn-icon" data-toggle="modal" data-target="#view-keep-modal" @click="viewKeep(keep)"><span class="glyphicon glyphicon-zoom-in"></span></button>
         </div>
       </div>
-      <h2>{{keep.name}}</h2>
-      <button title="Keep" type="button" class="btn btn-success btn-icon" data-toggle="modal" data-target="#add-to-vault-modal"><span class="custom-icon main-font">K</span></button>
+      <h3>{{keep.name}}</h3>
+      <button title="Keep" type="button" class="btn btn-alt btn-icon" data-toggle="modal" data-target="#add-to-vault-modal"><span class="custom-icon main-font">K</span></button>
       <button title="View" type="button" class="btn btn-primary btn-icon" data-toggle="modal" data-target="#view-keep-modal" @click="viewKeep(keep)"><span class="glyphicon glyphicon-zoom-in"></span></button>
     </div>
 

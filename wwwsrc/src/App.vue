@@ -2,25 +2,16 @@
   <div id="app" class="container-fluid">
     <nav class="navbar navbar-inverse">
       <div class="navbar-header">
-        <!--
-        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
-          aria-expanded="false">
-          <span class="sr-only">Toggle Navigation</span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </button>
-      -->
         <router-link :to="{name: 'Home'}">
           <a class="navbar-brand main-font">Keepr</a>
         </router-link>
         <div class="text-right" v-if="activeUser.hasOwnProperty('username')">
-          <p class="navbar-text">Welcome, {{activeUser.username}}</p>
+          <p class="navbar-text">{{activeUser.username}}</p>
           <router-link :to="{name: 'Home'}">
-            <button type="button" class="btn btn-primary navbar-btn dashboard-btn">Home</button>
+            <button type="button" class="btn btn-primary navbar-btn navbar-button-default">Home</button>
           </router-link>
           <router-link :to="{name: 'Dashboard'}">
-            <button type="button" class="btn btn-primary navbar-btn dashboard-btn">Dashboard</button>
+            <button type="button" class="btn btn-primary navbar-btn navbar-button-default">Dashboard</button>
           </router-link>
           <button type="button" class="btn btn-danger navbar-btn logout-btn" @click="logout">Logout</button>
         </div>
@@ -29,21 +20,6 @@
           <button type="button" class="btn btn-success navbar-btn" data-toggle="modal" data-target="#signUp">Signup</button>
         </div>
       </div>
-
-      <!-- MENU DROWDOWN -->
-      <!--
-      <div class="collapse navbar-collapse text-center" id="bs-example-navbar-collapse-1">
-        <ul>
-          <li>
-            <router-link :to="{name: 'Home'}">
-              <button type="button" class="btn btn-default nav-drop-btn" data-toggle="collapse" data-target=".navbar-collapse.in">Home</button>
-            </router-link>
-          </li>
-        </ul>
-        <ul class="nav navbar-nav navbar-right">
-        </ul>
-      </div>
-    -->
     </nav>
 
     <div id="login" class="modal fade" role="dialog">
@@ -181,10 +157,37 @@
 <style>
   body {
     font-family: 'Lato', sans-serif;
+    background: #fff;
+    background: linear-gradient(rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5)), url("./assets/parchment.jpg") no-repeat fixed center;
+    background-size: cover;
   }
 
   .keep {
     border: 1px solid #404040;
+  }
+
+  .btn-primary {
+    background: #737373;
+    border: 1px solid #737373;
+  }
+
+  .btn-alt {
+    background: #ffcc00;
+    border: 1px solid #ffcc00;
+  }
+
+  .btn-primary:hover, 
+  .btn-primary:active, 
+  .btn-primary:focus {
+    background: #404040;
+    border: 1px solid #404040;
+  }
+
+  .btn-alt:hover, 
+  .btn-alt:active, 
+  .btn-alt:focus {
+    background: #e6b800;
+    border: 1px solid #e6b800;
   }
 
   .image-wrapper {
@@ -244,16 +247,12 @@
     width: 100%;
   }
 
-  .screenshot {
-    margin-left: 50px;
-  }
-
   .navbar ul {
     list-style-type: none;
   }
 
   .logout-btn {
-    margin-left: 2px;
+    margin: 0 10px 0 2px;
   }
 
   @media (max-width: 2000px) {
@@ -262,16 +261,6 @@
     }
     .navbar-toggle {
       display: block;
-    }
-    .navbar-collapse {
-      border-top: 1px solid transparent;
-      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1);
-    }
-    .navbar-collapse.collapse {
-      display: none!important;
-    }
-    .navbar-collapse.collapse.in {
-      display: block!important;
     }
     .navbar-nav {
       float: none!important;
@@ -286,12 +275,6 @@
     }
     .state {
       width: 50%
-    }
-    .nav-drop-btn {
-      width: 100%;
-      background-color: #FFFFF9;
-      margin: 2px;
-      font: black;
     }
   }
 </style>
