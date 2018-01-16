@@ -1,17 +1,17 @@
 <template>
   <div class="home container-fluid text-center">
     <h1 class="main-font">Keepr</h1>
-    <div class="keep col-sm-3" v-for="keep in keeps">
+    <div class="keep col-sm-3 well" v-for="keep in keeps">
       <div class="image-wrapper">
         <img class="img-responsive text-center keep-image" :src="keep.imageUrl" alt="">
         <div class="overlay-content">
-          <button type="button" class="btn btn-success" data-toggle="modal" data-target="#add-to-vault-modal" @click="viewKeep(keep)"><span class="main-font">K</span></button>
-          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#view-keep-modal" @click="viewKeep(keep)"><span class="glyphicon glyphicon-eye-open"></span></button>
+          <button title="Keep" type="button" class="btn btn-success btn-icon" data-toggle="modal" data-target="#add-to-vault-modal"><span class="custom-icon main-font">K</span></button>
+          <button title="View" type="button" class="btn btn-primary btn-icon" data-toggle="modal" data-target="#view-keep-modal" @click="viewKeep(keep)"><span class="glyphicon glyphicon-zoom-in"></span></button>
         </div>
       </div>
       <h2>{{keep.name}}</h2>
-      <button type="button" class="btn btn-success" data-toggle="modal" data-target="#add-to-vault-modal" @click="viewKeep(keep)"><span class="main-font">K</span></button>
-      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#view-keep-modal" @click="viewKeep(keep)"><span class="glyphicon glyphicon-resize-full"></span></button>
+      <button title="Keep" type="button" class="btn btn-success btn-icon" data-toggle="modal" data-target="#add-to-vault-modal"><span class="custom-icon main-font">K</span></button>
+      <button title="View" type="button" class="btn btn-primary btn-icon" data-toggle="modal" data-target="#view-keep-modal" @click="viewKeep(keep)"><span class="glyphicon glyphicon-zoom-in"></span></button>
     </div>
 
 
@@ -26,7 +26,7 @@
           <div class="modal-body">
             <div class="row" v-for="vault in vaults">
               <h5 class="pull-left">{{vault.name}}</h5>
-              <button type="button" class="btn btn-success pull-right" data-dismiss="modal" @click="addKeepToVault(activeKeep, vault.id)"><span class="glyphicon glyphicon-plus-sign"></span></button>
+              <button title="Add to Vault" type="button" class="btn btn-success pull-right" data-dismiss="modal" @click="addKeepToVault(activeKeep, vault.id)"><span class="glyphicon glyphicon-plus-sign"></span></button>
             </div>
           </div>
           <div class="modal-footer">
@@ -134,40 +134,5 @@
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style>
-  .keep {
-    border: 1px solid #000;
-  }
 
-  .image-wrapper {
-    position: relative;
-    width: 100%;
-  }
-
-  .image-wrapper:hover .keep-image {
-    opacity: 0.3;
-  }
-
-  .image-wrapper:hover .overlay-content {
-    opacity: 1;
-  }
-
-  .keep-image {
-    opacity: 1;
-    display: block;
-    width: 100%;
-    height: auto;
-    transition: .5s ease;
-    backface-visibility: hidden;
-  }
-
-  .overlay-content {
-    transition: .5s ease;
-    opacity: 0;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    -ms-transform: translate(-50%, -50%);
-    text-align: center;
-  }
 </style>

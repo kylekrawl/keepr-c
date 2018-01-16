@@ -179,6 +179,63 @@
 </script>
 
 <style>
+  body {
+    font-family: 'Lato', sans-serif;
+  }
+
+  .keep {
+    border: 1px solid #404040;
+  }
+
+  .image-wrapper {
+    position: relative;
+    width: 100%;
+  }
+
+  .image-wrapper:hover .keep-image {
+    opacity: 0.3;
+  }
+
+  .image-wrapper:hover .overlay-content {
+    opacity: 1;
+  }
+
+  .keep-image {
+    opacity: 1;
+    display: block;
+    width: 100%;
+    height: auto;
+    transition: .5s ease;
+    backface-visibility: hidden;
+    border-radius: 1%;
+    border: 1px solid #404040;
+  }
+
+  .overlay-content {
+    transition: .5s ease;
+    opacity: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    text-align: center;
+  }
+
+  .glyphicon {
+    font-size: 1.5em;
+  }
+
+  .custom-icon {
+    font-size: 1.4em;
+  }
+
+  .btn-icon {
+    width: 45px;
+    height: 40px;
+    border-radius: 20%;
+  }
+
   .main-font {
     font-family: 'Modern Antiqua', cursive;
   }

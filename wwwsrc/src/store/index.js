@@ -57,6 +57,7 @@ var store = new vuex.Store({
                 .then(res => {
                     console.log("Successful login.")
                     commit('setActiveUser', res.data)
+                    dispatch('getUserVaults')
                 })
                 .catch(err => {
                     commit('handleError', err)
@@ -89,6 +90,7 @@ var store = new vuex.Store({
             auth.delete('account/logout')
                 .then(() => {
                     var user = {}
+                    var vaults = []
                     commit('setActiveUser', user)
                     router.push({ name: 'Home' })
                 })
@@ -224,7 +226,17 @@ var store = new vuex.Store({
         editKeep({ commit, dispatch }, payload) {
             api.put(`keeps/${payload.id}`, payload.data)
                 .then(res => {
-                    dispatch('getAllKeeps')
+                    dispatch('getPublicKeeps')
+                })
+                .catch(err => {
+                    commit('handleError', err)
+                })
+        },
+
+        editUserKeep({ commit, dispatch }, payload) {
+            api.put(`keeps/${payload.id}`, payload.data)
+                .then(res => {
+                    dispatch('getUserKeeps')
                 })
                 .catch(err => {
                     commit('handleError', err)

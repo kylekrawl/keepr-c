@@ -9,33 +9,33 @@
         </div>
         <div class="row">
             <h2>My Keeps</h2>
-            <div class="keep col-sm-3" v-for="keep in keeps">
+            <div class="keep col-sm-3 well" v-for="keep in keeps">
                 <img class="img-responsive" :src="keep.imageUrl" alt="">
                 <h2>{{keep.name}}</h2>
                 <p v-if="keep.published">Public</p>
                 <p v-else>Private</p>
-                <button v-if="!keep.published" type="button" class="btn btn-primary" @click="publishKeep(keep)">
+                <button title="Make Public" v-if="!keep.published" type="button" class="btn btn-primary btn-icon" @click="publishKeep(keep)">
                     <span class="glyphicon glyphicon-eye-open"></span>
                 </button>
-                <button v-else type="button" class="btn btn-primary" @click="unpublishKeep(keep)">
+                <button title="Make Private" v-else type="button" class="btn btn-primary btn-icon" @click="unpublishKeep(keep)">
                     <span class="glyphicon glyphicon glyphicon-eye-close"></span>
                 </button>
-                <button v-if="!keep.published" type="button" class="btn btn-danger" @click="removeKeep(keep.id)">
+                <button title="Delete" v-if="!keep.published" type="button" class="btn btn-danger btn-icon" @click="removeKeep(keep.id)">
                     <span class="glyphicon glyphicon-trash"></span>
                 </button>
             </div>
         </div>
         <div class="row">
             <h2>My Vaults</h2>
-            <div class="vault col-sm-3" v-for="vault in vaults">
+            <div class="vault col-sm-4 well" v-for="vault in vaults">
                 <h2>{{vault.name}}</h2>
                 <h4>{{vault.description}}</h4>
                 <router-link :to="{path: 'my-vaults/' + vault.id}">
-                    <button type="button" class="btn btn-primary">
-                        <span class="glyphicon glyphicon-eye-open"></span>
+                    <button title="View" type="button" class="btn btn-primary btn-icon">
+                        <span class="glyphicon glyphicon-zoom-in"></span>
                     </button>
                 </router-link>
-                <button type="button" class="btn btn-danger" @click="removeVault(vault.id)">
+                <button title="Delete" type="button" class="btn btn-danger btn-icon" @click="removeVault(vault.id)">
                     <span class="glyphicon glyphicon-trash"></span>
                 </button>
             </div>
@@ -168,7 +168,7 @@
                     articleUrl: keep.articleUrl,
                     published: true
                 }
-                this.$store.dispatch('editKeep', { data: updatedKeep, id: keep.id })
+                this.$store.dispatch('editUserKeep', { data: updatedKeep, id: keep.id })
             },
             unpublishKeep(keep) {
                 var updatedKeep = {
@@ -180,7 +180,7 @@
                     articleUrl: keep.articleUrl,
                     published: false
                 }
-                this.$store.dispatch('editKeep', { data: updatedKeep, id: keep.id })
+                this.$store.dispatch('editUserKeep', { data: updatedKeep, id: keep.id })
             }
         }
     }

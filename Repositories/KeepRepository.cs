@@ -59,7 +59,7 @@ namespace keepr.Repositories
             Console.WriteLine("GET REQUEST ID: ", id);
             return _db.Query<Keep>($@"SELECT * FROM vaultkeeps vk
                                                     INNER JOIN keeps k ON k.id = vk.keepId 
-                                                    WHERE (vaultId = {id})", id);
+                                                    WHERE vaultId = {id} AND published = true", id);
         }
 
         public IEnumerable<Keep> GetByUserId(int id)

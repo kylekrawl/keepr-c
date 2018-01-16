@@ -5,7 +5,7 @@
         <div class="keep col-sm-3" v-for="keep in keeps">
             <h2>{{keep.name}}</h2>
             <img class="img-responsive" :src="keep.imageUrl" alt="">
-            <button type="button" class="btn btn-danger" @click="removeKeepFromVault(keep.id, activeVault.id)">Remove</button>
+            <button type="button" class="btn btn-danger" @click="removeKeepFromVault(keep.id, activeVault.id)"><span class="glyphicon glyphicon-trash"></span></button>
         </div>
     </div>
 </template>
