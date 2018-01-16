@@ -19,6 +19,10 @@
                         <button title="Make Private" v-else type="button" class="btn btn-primary btn-icon" @click="unpublishKeep(keep)">
                             <span class="glyphicon glyphicon glyphicon-eye-close"></span>
                         </button>
+                        <button title="Edit" v-if="!keep.published" type="button" class="btn btn-alt btn-icon" data-toggle="modal" data-target="#edit-keep-modal"
+                            @click="setTargetKeep(keep)">
+                            <span class="glyphicon glyphicon-pencil"></span>
+                        </button>
                         <button title="Delete" v-if="!keep.published" type="button" class="btn btn-danger btn-icon" @click="removeKeep(keep.id)">
                             <span class="glyphicon glyphicon-trash"></span>
                         </button>
@@ -33,23 +37,14 @@
                 <button title="Make Private" v-else type="button" class="btn btn-primary btn-icon" @click="unpublishKeep(keep)">
                     <span class="glyphicon glyphicon glyphicon-eye-close"></span>
                 </button>
+                <button title="Edit" v-if="!keep.published" type="button" class="btn btn-alt btn-icon" data-toggle="modal" data-target="#edit-keep-modal"
+                    @click="setTargetKeep(keep)">
+                    <span class="glyphicon glyphicon-pencil"></span>
+                </button>
                 <button title="Delete" v-if="!keep.published" type="button" class="btn btn-danger btn-icon" @click="removeKeep(keep.id)">
                     <span class="glyphicon glyphicon-trash"></span>
                 </button>
             </div>
-
-            <!-- <div class="keep col-sm-3 well" v-for="keep in keeps">
-                    <div class="image-wrapper">
-                      <img class="img-responsive text-center keep-image" :src="keep.imageUrl" alt="">
-                      <div class="overlay-content">
-                        <button title="Keep" type="button" class="btn btn-alt btn-icon" data-toggle="modal" data-target="#add-to-vault-modal"><span class="custom-icon main-font">K</span></button>
-                        <button title="View" type="button" class="btn btn-primary btn-icon" data-toggle="modal" data-target="#view-keep-modal" @click="viewKeep(keep)"><span class="glyphicon glyphicon-zoom-in"></span></button>
-                      </div>
-                    </div>
-                    <h3>{{keep.name}}</h3>
-                    <button title="Keep" type="button" class="btn btn-alt btn-icon" data-toggle="modal" data-target="#add-to-vault-modal"><span class="custom-icon main-font">K</span></button>
-                    <button title="View" type="button" class="btn btn-primary btn-icon" data-toggle="modal" data-target="#view-keep-modal" @click="viewKeep(keep)"><span class="glyphicon glyphicon-zoom-in"></span></button>
-                  </div> -->
         </div>
         <div class="row">
             <h2>My Vaults</h2>
@@ -69,7 +64,6 @@
 
         <div id="create-vault-modal" class="modal fade" role="dialog">
             <div class="modal-dialog">
-                <!-- Modal content-->
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -97,30 +91,29 @@
             </div>
         </div>
 
-        <div id="create-keep-modal" class="modal fade" role="dialog">
+        <div id="edit-keep-modal" class="modal fade" role="dialog">
             <div class="modal-dialog">
-                <!-- Modal content-->
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title">Create Keep</h4>
+                        <h4 class="modal-title">Edit Keep</h4>
                     </div>
                     <div class="modal-body">
                         <form id="create-keep-form" class="form">
                             <div class="form-group">
                                 <label for="title">Title:</label>
-                                <input type="text" maxlength="60" name="text" class="form-control" placeholder="Title" required v-model='newKeep.name'>
+                                <input type="text" maxlength="60" name="text" class="form-control" placeholder="Title" required v-model='targetKeep.name'>
                             </div>
                             <div class="form-group">
                                 <label for="description">Image Link:</label>
-                                <input type="text" name="image" maxlength="200" class="form-control" placeholder="Image Link" required v-model='newKeep.imageUrl'>
+                                <input type="text" name="image" maxlength="200" class="form-control" placeholder="Image Link" required v-model='targetKeep.imageUrl'>
                             </div>
                             <div class="form-group">
                                 <label for="description">Article Link:</label>
-                                <input type="text" name="article" maxlength="200" class="form-control" placeholder="Article Link" required v-model='newKeep.articleUrl'>
+                                <input type="text" name="article" maxlength="200" class="form-control" placeholder="Article Link" required v-model='targetKeep.articleUrl'>
                             </div>
                             <div class="form-group">
-                                <button class="btn btn-submit btn-success" @click="createKeep" data-dismiss="modal" type="submit">Create</button>
+                                <button class="btn btn-submit btn-success" @click="editKeep(targetKeep)" data-dismiss="modal" type="submit">Submit</button>
                             </div>
                         </form>
                     </div>
@@ -130,7 +123,6 @@
                 </div>
             </div>
         </div>
-    </div>
     </div>
 </template>
 
@@ -149,6 +141,16 @@
                     articleUrl: null,
                     views: 0,
                     vaultAdds: 0
+                },
+                targetKeep: {
+                    id: null,
+                    name: '',
+                    userId: null,
+                    views: 0,
+                    vaultAdds: 0,
+                    imageUrl: '',
+                    articleUrl: '',
+                    published: false
                 }
             }
         },
@@ -172,6 +174,18 @@
             }
         },
         methods: {
+            setTargetKeep(keep) {
+                this.targetKeep = {
+                    id: keep.id,
+                    name: keep.name,
+                    userId: keep.userId,
+                    views: keep.views,
+                    vaultAdds: keep.vaultAdds,
+                    imageUrl: keep.imageUrl,
+                    articleUrl: keep.articleUrl,
+                    published: keep.published
+                }
+            },
             createVault() {
                 this.$store.dispatch('createVault', this.newVault)
             },
@@ -205,6 +219,18 @@
                     imageUrl: keep.imageUrl,
                     articleUrl: keep.articleUrl,
                     published: false
+                }
+                this.$store.dispatch('editUserKeep', { data: updatedKeep, id: keep.id })
+            },
+            editKeep(keep) {
+                var updatedKeep = {
+                    name: keep.name,
+                    userId: keep.userId,
+                    views: keep.views,
+                    vaultAdds: keep.vaultAdds,
+                    imageUrl: keep.imageUrl,
+                    articleUrl: keep.articleUrl,
+                    published: keep.published
                 }
                 this.$store.dispatch('editUserKeep', { data: updatedKeep, id: keep.id })
             }
