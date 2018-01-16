@@ -91,6 +91,40 @@
             </div>
         </div>
 
+        <div id="create-keep-modal" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Create Keep</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form id="create-keep-form" class="form">
+                            <div class="form-group">
+                                <label for="title">Title:</label>
+                                <input type="text" maxlength="60" name="text" class="form-control" placeholder="Title" required v-model='newKeep.name'>
+                            </div>
+                            <div class="form-group">
+                                <label for="description">Image Link:</label>
+                                <input type="text" name="image" maxlength="200" class="form-control" placeholder="Image Link" required v-model='newKeep.imageUrl'>
+                            </div>
+                            <div class="form-group">
+                                <label for="description">Article Link:</label>
+                                <input type="text" name="article" maxlength="200" class="form-control" placeholder="Article Link" required v-model='newKeep.articleUrl'>
+                            </div>
+                            <div class="form-group">
+                                <button class="btn btn-submit btn-success" @click="createKeep" data-dismiss="modal" type="submit">Create</button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <div id="edit-keep-modal" class="modal fade" role="dialog">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -99,7 +133,7 @@
                         <h4 class="modal-title">Edit Keep</h4>
                     </div>
                     <div class="modal-body">
-                        <form id="create-keep-form" class="form">
+                        <form id="edit-keep-form" class="form">
                             <div class="form-group">
                                 <label for="title">Title:</label>
                                 <input type="text" maxlength="60" name="text" class="form-control" placeholder="Title" required v-model='targetKeep.name'>

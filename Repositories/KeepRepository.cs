@@ -30,31 +30,33 @@ namespace keepr.Repositories
 
         public IEnumerable<Keep> GetAllPublicByQuery(string query)
         {
-            string querySubstring = " AND WHERE name LIKE ";
-            List<string> queryTerms = new List<string>(){};
+            string querySubstring = " AND name LIKE ";
+            query += "-";
+            string term = "";
             if (query.Length > 0)
             {
-                string term = "";
                 for (var i = 0; i < query.Length; i++)
                 {
-                    if (query[i] != '-' && term != "")
+                    if (query[i] != '-')
                     {
                         term += query[i];
-                    } else {
-                        term = "";
-                        if (querySubstring == " AND WHERE name LIKE ") {
+                    } else if (term != "") {
+                        if (querySubstring == " AND name LIKE ") {
                             querySubstring += $"'%{term}%'";
                         } else {
-                            querySubstring += $" OR '%{term}%'";
+                            querySubstring += $" OR name LIKE '%{term}%'";
                         }
-                        
+                        term = "";
                     }
                 }
             }
-            if (querySubstring == " AND WHERE name LIKE ") {
-                querySubstring = "";
+            if (querySubstring == " AND name LIKE ") {
+                if (term.Length > 0) {
+                    querySubstring += $" OR name LIKE '%{term}%'";
+                } else {
+                    querySubstring = "";
+                }
             }
-            Console.WriteLine($"SELECT * FROM keeps WHERE published = true{querySubstring}");
             return _db.Query<Keep>($"SELECT * FROM keeps WHERE published = true{querySubstring}", querySubstring);
         }
 
