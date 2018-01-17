@@ -286,6 +286,12 @@
     border-radius: 20%;
   }
 
+  .add-button {
+    width: 42px;
+    height: 40px;
+    border-radius: 100%;
+  }
+
   .main-font {
     font-family: 'Modern Antiqua', cursive;
   }

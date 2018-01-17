@@ -58,8 +58,8 @@
         <div class="modal-content">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal">&times;</button>
-            <h4 class="modal-title">Add to Vault</h4>
-            <h3>{{activeKeep.name}}</h3>
+            <h3 class="modal-title">Add to Vault</h3>
+            <h4>{{activeKeep.name}}</h4>
           </div>
           <div class="modal-body">
             <div v-if="!vaults.length">
@@ -69,10 +69,12 @@
               </router-link>
             </div>
             <div class="row" v-for="vault in vaults">
-              <h5 class="pull-left">{{vault.name}}</h5>
-              <button title="Add to Vault" type="button" class="btn btn-success pull-right" data-dismiss="modal" @click="addKeepToVault(activeKeep, vault.id)">
-                <span class="glyphicon glyphicon-plus-sign"></span>
-              </button>
+              <div class="col-xs-offset-3 col-xs-6">
+                <h4 class="pull-left">{{vault.name}}</h4>
+                <button title="Add to Vault" type="button" class="btn btn-success add-button pull-right" data-dismiss="modal" @click="addKeepToVault(activeKeep, vault.id)">
+                  <span class="glyphicon glyphicon-plus-sign"></span>
+                </button>
+              </div>
             </div>
           </div>
           <div class="modal-footer">
@@ -87,7 +89,7 @@
         <div class="modal-content">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal">&times;</button>
-            <h4 class="modal-title">{{activeKeep.name}}</h4>
+            <h3 class="modal-title">{{activeKeep.name}}</h3>
           </div>
           <div class="modal-body">
             <div class="row">

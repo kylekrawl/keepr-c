@@ -13,7 +13,7 @@
                 <h3 class="empty-message">Looks like you haven't made any keeps yet! Why not make one now?</h3>
                 <button type="button" class="btn btn-primary btn-main" data-toggle="modal" data-target="#create-keep-modal">New Keep</button>
             </div>
-            <div class="keep col-sm-3 well" v-for="keep in keeps">
+            <div class="keep col-sm-4 col-md-3 col-lg-2 well" v-for="keep in keeps">
                 <div class="image-wrapper">
                     <img class="img-responsive center-block keep-image" :src="keep.imageUrl" alt="">
                     <div class="overlay-content" v-if="keep.published">
@@ -87,7 +87,7 @@
                 <h3 class="empty-message">No vaults to be found. You should add one!</h3>
                 <button type="button" class="btn btn-primary btn-main" data-toggle="modal" data-target="#create-vault-modal">New Vault</button>
             </div>
-            <div class="vault col-sm-4 well" v-for="vault in vaults">
+            <div class="vault col-sm-6 col-md-4 well" v-for="vault in vaults">
                 <h2>{{vault.name}}</h2>
                 <h4>{{vault.description}}</h4>
                 <router-link :to="{path: 'my-vaults/' + vault.id}">
@@ -106,7 +106,7 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title">Create Vault</h4>
+                        <h3 class="modal-title">Create Vault</h3>
                     </div>
                     <div class="modal-body">
                         <form id="create-vault-form" class="form">
@@ -135,7 +135,7 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title">Create Keep</h4>
+                        <h3 class="modal-title">Create Keep</h3>
                     </div>
                     <div class="modal-body">
                         <form id="create-keep-form" class="form">
@@ -168,7 +168,7 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title">Edit Keep</h4>
+                        <h3 class="modal-title">Edit Keep</h3>
                     </div>
                     <div class="modal-body">
                         <form id="edit-keep-form" class="form">
@@ -201,8 +201,8 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title">Add to Vault</h4>
-                        <h3>{{activeKeep.name}}</h3>
+                        <h3 class="modal-title">Add to Vault</h3>
+                        <h4>{{activeKeep.name}}</h4>
                     </div>
                     <div class="modal-body">
                         <div v-if="!vaults.length">
@@ -230,7 +230,7 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title">{{activeKeep.name}}</h4>
+                        <h3 class="modal-title">{{activeKeep.name}}</h3>
                     </div>
                     <div class="modal-body">
                         <div class="row">

@@ -1,5 +1,5 @@
 <template>
-    <div class="keep col-sm-3 well">
+    <div class="keep col-sm-4 col-md-3 col-lg-2 well">
         <div class="image-wrapper">
             <img class="img-responsive center-block keep-image" :src="keep.imageUrl" alt="">
             <div class="overlay-content">
