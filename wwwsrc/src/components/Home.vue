@@ -16,7 +16,7 @@
     <div class="row">
       <div class="keep col-sm-3 well" v-for="keep in keeps">
         <div class="image-wrapper">
-          <img class="img-responsive text-center keep-image" :src="keep.imageUrl" alt="">
+          <img class="img-responsive center-block keep-image" :src="keep.imageUrl" alt="">
           <div class="overlay-content">
             <button title="Keep" type="button" class="btn btn-alt btn-icon" data-toggle="modal" data-target="#add-to-vault-modal" @click="vaultAddView(keep)">
               <span class="custom-icon main-font">K</span>
@@ -24,8 +24,19 @@
             <button title="View" type="button" class="btn btn-primary btn-icon" data-toggle="modal" data-target="#view-keep-modal" @click="viewKeep(keep)">
               <span class="glyphicon glyphicon-zoom-in"></span>
             </button>
+            <button title="Share" type="button" class="btn btn-alt-2 btn-icon" disabled>
+              <span class="glyphicon glyphicon-share-alt"></span>
+            </button>
           </div>
         </div>
+        <span class="counter">
+          <span class="glyphicon glyphicon-eye-open"></span>
+          <span class="counter-label">: {{keep.views}}</span>
+        </span>
+        <span class="counter">
+          <span class="custom-icon main-font">K</span>
+          <span class="counter-label">: {{keep.vaultAdds}}</span>
+        </span>
         <h2>{{keep.name}}</h2>
         <button title="Keep" type="button" class="btn btn-alt btn-icon" data-toggle="modal" data-target="#add-to-vault-modal" @click="vaultAddView(keep)">
           <span class="custom-icon main-font">K</span>
@@ -33,9 +44,11 @@
         <button title="View" type="button" class="btn btn-primary btn-icon" data-toggle="modal" data-target="#view-keep-modal" @click="viewKeep(keep)">
           <span class="glyphicon glyphicon-zoom-in"></span>
         </button>
+        <button title="Share" type="button" class="btn btn-alt-2 btn-icon" disabled>
+          <span class="glyphicon glyphicon-share-alt"></span>
+        </button>
       </div>
     </div>
-
 
     <div id="add-to-vault-modal" class="modal fade" role="dialog">
       <div class="modal-dialog">
@@ -76,9 +89,15 @@
           <div class="modal-body">
             <div class="row">
               <div class="col-sm-12">
-                <img class="img-responsive text-center" :src="activeKeep.imageUrl" alt="">
-                <h5>Views: {{activeKeep.views + 1}}</h5>
-                <h5>Adds: {{activeKeep.vaultAdds}}</h5>
+                <img class="img-responsive center-block keep-large-view" :src="activeKeep.imageUrl" alt="">
+                <span class="counter">
+                  <span class="glyphicon glyphicon-eye-open"></span>
+                  <span class="counter-label">: {{activeKeep.views + 1}}</span>
+                </span>
+                <span class="counter">
+                  <span class="custom-icon main-font">K</span>
+                  <span class="counter-label">: {{activeKeep.vaultAdds}}</span>
+                </span>
               </div>
             </div>
           </div>
@@ -167,7 +186,7 @@
         } else {
           this.$store.dispatch('getPublicKeeps')
         }
-          
+
       }
     }
 

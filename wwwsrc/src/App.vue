@@ -201,6 +201,11 @@
     border: 1px solid #ffcc00;
   }
 
+  .btn-alt-2 {
+    background: #00ffff;
+    border: 1px solid #00ffff;
+  }
+
   .btn-primary:hover,
   .btn-primary:active,
   .btn-primary:focus {
@@ -213,6 +218,13 @@
   .btn-alt:focus {
     background: #e6b800;
     border: 1px solid #e6b800;
+  }
+
+  .btn-alt-2:hover,
+  .btn-alt-2:active,
+  .btn-alt-2:focus {
+    background: #00e6e6;
+    border: 1px solid #00e6e6;
   }
 
   .image-wrapper {
@@ -237,6 +249,11 @@
     backface-visibility: hidden;
     border-radius: 1%;
     border: 1px solid #404040;
+    margin-bottom: 15px;
+  }
+
+  .keep-large-view {
+    margin-bottom: 20px;
   }
 
   .overlay-content {
@@ -254,8 +271,13 @@
     font-size: 1.5em;
   }
 
-  .custom-icon {
+  .custom-icon,
+  .counter-label {
     font-size: 1.4em;
+  }
+
+  .counter {
+    margin: 0 5px;
   }
 
   .btn-icon {
