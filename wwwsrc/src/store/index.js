@@ -26,7 +26,19 @@ var store = new vuex.Store({
         activeKeep: {},
         activeVault: {},
         vaults: [],
-        keeps: []
+        keeps: [],
+
+        // ABSTRACTED STATE VARIABLES (Incomplete):
+
+        // activeInstance: {
+        //     users: {},
+        //     keeps: {},
+        //     vaults: {}
+        // },
+        // activeResource: {
+        //     keeps: [],
+        //     vaults: []
+        // }
     },
     mutations: {
         handleError(state, err) {
@@ -46,7 +58,18 @@ var store = new vuex.Store({
         },
         setVaults(state, payload) {
             state.vaults = payload.data
-        },
+        }
+
+        // ABSTRACTED MUTATIONS (Incomplete):
+
+        // setActiveInstance(state, payload) {
+        //     vue.set(state.activeInstance, payload.resource, payload.data)
+        // },
+
+        // setActiveResource(state, payload) {
+        //     vue.set(state.activeResource, payload.resource, payload.data)
+        // }
+
     },
     actions: {
 
@@ -108,16 +131,6 @@ var store = new vuex.Store({
                 })
         },
 
-        getPublicKeepsByQuery({ commit, dispatch }, payload) {
-            api(`keeps/search/${payload.data}`)
-                .then(res => {
-                    commit('setKeeps', { data: res.data })
-                })
-                .catch(err => {
-                    commit('handleError', err)
-                })
-        },
-
         getActiveKeep({ commit, dispatch }, payload) {
             api(`keeps/${payload.id}`)
                 .then(res => {
@@ -138,7 +151,39 @@ var store = new vuex.Store({
                 })
         },
 
+        // SEARCH BY TITLE:
+
+        getPublicKeepsByQuery({ commit, dispatch }, payload) {
+            api(`keeps/search/${payload.data}`)
+                .then(res => {
+                    commit('setKeeps', { data: res.data })
+                })
+                .catch(err => {
+                    commit('handleError', err)
+                })
+        },
+
         // USER-MANAGED AND AUTH-ONLY RESOURCE METHODS:
+
+        createKeep({ commit, dispatch }, payload) {
+            api.post('keeps', payload)
+                .then(res => {
+                    dispatch('getUserKeeps')
+                })
+                .catch(err => {
+                    commit('handleError', err)
+                })
+        },
+
+        createVault({ commit, dispatch }, payload) {
+            api.post('vaults', payload)
+                .then(res => {
+                    dispatch('getUserVaults')
+                })
+                .catch(err => {
+                    commit('handleError', err)
+                })
+        },
 
         getKeepsInVault({ commit, dispatch }, payload) {
             api(`manage/vaults/${payload.id}/keeps`)
@@ -172,26 +217,6 @@ var store = new vuex.Store({
                 })
         },
 
-        createKeep({ commit, dispatch }, payload) {
-            api.post('keeps', payload)
-                .then(res => {
-                    dispatch('getUserKeeps')
-                })
-                .catch(err => {
-                    commit('handleError', err)
-                })
-        },
-
-        createVault({ commit, dispatch }, payload) {
-            api.post('vaults', payload)
-                .then(res => {
-                    dispatch('getUserVaults')
-                })
-                .catch(err => {
-                    commit('handleError', err)
-                })
-        },
-
         addKeepToVault({ commit, dispatch }, payload) {
             api.post(`manage/vaults/${payload.vaultId}/keeps`, payload)
                 .then(res => {
@@ -216,7 +241,7 @@ var store = new vuex.Store({
         editVault({ commit, dispatch }, payload) {
             api.put(`vaults/${payload.endpoint}`, payload.data)
                 .then(res => {
-                    dispatch('getUserVaults', { endpoint: payload.endpoint })
+                    dispatch('getUserVaults')
                 })
                 .catch(err => {
                     commit('handleError', err)
@@ -262,6 +287,64 @@ var store = new vuex.Store({
                     commit('handleError', err)
                 })
         }
+
+        // ABSTRACTED ACTIONS (Incomplete):
+
+        // getAllInResource({ commit, dispatch }, payload) {
+        //     api(`${payload.baseRoute}/${payload.resource}`)
+        //         .then(res => {
+        //             commit('setActiveResource', { resource: payload.resource, data: payload.data })
+        //             if (payload.checkAuth) {
+        //                 dispatch('authenticate')
+        //             }
+        //         })
+        //         .catch(err => {
+        //             commit('handleError', err)
+        //         })
+        // },
+
+        // getOneInResource({ commit, dispatch }, payload) {
+        //     api(`${payload.baseRoute}/${payload.resource}/${payload.endpoint}`)
+        //         .then(res => {
+        //             commit('setActiveInstance', { resource: payload.resource, data: payload.data })
+        //             if (payload.checkAuth) {
+        //                 dispatch('authenticate')
+        //             }
+        //         })
+        //         .catch(err => {
+        //             commit('handleError', err)
+        //         })
+        // },
+
+        // postToResource({ commit, dispatch }, payload) {
+        //     api.post(`${payload.baseRoute}/${payload.resource}/${payload.endpoint}`)
+        //         .then(res => {
+        //             if (payload.dispatch) {
+        //                 dispatch(`${payload.dispatch}`, payload.arguments)
+        //             }
+        //             if (payload.checkAuth) {
+        //                 dispatch('authenticate')
+        //             }
+        //         })
+        //         .catch(err => {
+        //             commit('handleError', err)
+        //         })
+        // },
+
+        // deleteFromResource({ commit, dispatch }, payload) {
+        //     api.post(`${payload.baseRoute}/${payload.resource}/${payload.endpoint}`)
+        //         .then(res => {
+        //             if (payload.dispatch) {
+        //                 dispatch(`${payload.dispatch}`, payload.arguments)
+        //             }
+        //             if (payload.checkAuth) {
+        //                 dispatch('authenticate')
+        //             }
+        //         })
+        //         .catch(err => {
+        //             commit('handleError', err)
+        //         })
+        // }
 
     }
 })
