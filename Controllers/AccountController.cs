@@ -56,7 +56,6 @@ namespace keepr.Controllers
         public async void Logout()
         {
             await HttpContext.SignOutAsync();
-            // return RedirectToAction("Login");
         }
 
         [HttpGet("authenticate")]

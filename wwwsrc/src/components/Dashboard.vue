@@ -13,7 +13,7 @@
                 <h3 class="empty-message">Looks like you haven't made any keeps yet! Why not make one now?</h3>
                 <button type="button" class="btn btn-primary btn-main" data-toggle="modal" data-target="#create-keep-modal">New Keep</button>
             </div>
-            <div class="keep col-sm-4 col-md-3 col-lg-2 well" v-for="keep in keeps">
+            <div class="keep col-sm-4 col-md-3 well" v-for="keep in keeps">
                 <div class="image-wrapper">
                     <img class="img-responsive center-block keep-image" :src="keep.imageUrl" alt="">
                     <div class="overlay-content" v-if="keep.published">
@@ -43,13 +43,13 @@
                     </div>
                 </div>
                 <span class="counter">
-                        <span class="glyphicon glyphicon-eye-open"></span>
-                        <span class="counter-label">: {{keep.views}}</span>
-                      </span>
-                      <span class="counter">
-                        <span class="custom-icon main-font">K</span>
-                        <span class="counter-label">: {{keep.vaultAdds}}</span>
-                      </span>
+                    <span class="glyphicon glyphicon-eye-open"></span>
+                    <span class="counter-label">: {{keep.views}}</span>
+                </span>
+                <span class="counter">
+                    <span class="custom-icon main-font">K</span>
+                    <span class="counter-label">: {{keep.vaultAdds}}</span>
+                </span>
                 <h3>{{keep.name}}</h3>
                 <p v-if="keep.published">Public</p>
                 <p v-else>Private</p>
@@ -212,10 +212,12 @@
                             </router-link>
                         </div>
                         <div class="row" v-for="vault in vaults">
-                            <h5 class="pull-left">{{vault.name}}</h5>
-                            <button title="Add to Vault" type="button" class="btn btn-success pull-right" data-dismiss="modal" @click="addKeepToVault(activeKeep, vault.id)">
-                                <span class="glyphicon glyphicon-plus-sign"></span>
-                            </button>
+                            <div class="col-xs-offset-3 col-xs-6">
+                                <h4 class="pull-left">{{vault.name}}</h4>
+                                <button title="Add to Vault" type="button" class="btn btn-success add-button pull-right" data-dismiss="modal" @click="addKeepToVault(activeKeep, vault.id)">
+                                    <span class="glyphicon glyphicon-plus-sign"></span>
+                                </button>
+                            </div>
                         </div>
                     </div>
                     <div class="modal-footer">
