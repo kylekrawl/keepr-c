@@ -14,7 +14,10 @@
       </div>
     </div>
     <div class="row">
-      <div class="keep col-sm-3 well" v-for="keep in keeps">
+
+      <HomeKeep v-for="keep in keeps" :key="keep.id" :keep="keep"></HomeKeep>
+
+      <!-- <div class="keep col-sm-3 well" v-for="keep in keeps">
         <div class="image-wrapper">
           <img class="img-responsive center-block keep-image" :src="keep.imageUrl" alt="">
           <div class="overlay-content">
@@ -47,7 +50,7 @@
         <button title="Share" type="button" class="btn btn-alt-2 btn-icon" disabled>
           <span class="glyphicon glyphicon-share-alt"></span>
         </button>
-      </div>
+      </div> -->
     </div>
 
     <div id="add-to-vault-modal" class="modal fade" role="dialog">
@@ -111,6 +114,7 @@
 </template>
 
 <script>
+  import HomeKeep from './HomeKeep'
   export default {
     name: 'Home',
     data() {
@@ -119,7 +123,7 @@
       }
     },
     components: {
-
+      HomeKeep
     },
     mounted() {
       this.$store.dispatch('authenticate')
@@ -145,21 +149,6 @@
         this.incrementKeepVaultAdds(keep)
         this.$store.dispatch('addKeepToVault', { keepId: keep.id, vaultId })
       },
-      getActiveKeep(id) {
-        this.$store.dispatch('getActiveKeep', { id })
-      },
-      incrementKeepViews(keep) {
-        var updatedKeep = {
-          name: keep.name,
-          userId: keep.userId,
-          views: keep.views + 1,
-          vaultAdds: keep.vaultAdds,
-          imageUrl: keep.imageUrl,
-          articleUrl: keep.articleUrl,
-          published: keep.published
-        }
-        this.$store.dispatch('editKeep', { data: updatedKeep, id: keep.id })
-      },
       incrementKeepVaultAdds() {
         var updatedKeep = {
           name: this.activeKeep.name,
@@ -171,13 +160,6 @@
           published: this.activeKeep.published
         }
         this.$store.dispatch('editKeep', { data: updatedKeep, id: this.activeKeep.id })
-      },
-      viewKeep(keep) {
-        this.getActiveKeep(keep.id)
-        this.incrementKeepViews(keep)
-      },
-      vaultAddView(keep) {
-        this.getActiveKeep(keep.id)
       },
       searchQuery() {
         var query = this.query.split(" ").join("-")
