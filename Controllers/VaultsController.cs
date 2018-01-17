@@ -12,50 +12,22 @@ namespace keepr.Controllers
     [Route("api/[controller]")]
     public class VaultsController : Controller
     {
-        private readonly VaultRepository db;
-        private readonly UserRepository users;
-        public VaultsController(VaultRepository VaultRepo, UserRepository UserRepo)
+        private readonly VaultRepository vaultDb;
+        private readonly VaultKeepRepository vaultKeepDb;
+        private readonly UserRepository userDb;
+        public VaultsController(VaultRepository VaultRepo, VaultKeepRepository VaultKeepRepo, UserRepository UserRepo)
         {
-            db = VaultRepo;
-            users = UserRepo;
+            vaultDb = VaultRepo;
+            vaultKeepDb = VaultKeepRepo;
+            userDb = UserRepo;
         }
 
-        // GET api/values
-        [HttpGet]
-        public IEnumerable<Vault> Get()
-        {
-            return db.GetAll();
-        }
-
-        // GET api/values/5
         [HttpGet("{id}")]
         public Vault Get(int id)
         {
-            Console.WriteLine(id);
-            return db.GetById(id);
+            return vaultDb.GetById(id);
         }
 
-        [Authorize]
-        [HttpGet("manage")]
-        public IEnumerable<Vault> GetByActiveUser()
-        {
-            Console.WriteLine("GetVaultsByActiveUser called!");
-
-            var user = HttpContext.User;
-            var id = user.Identity.Name;
-
-            UserReturnModel activeUser = null;
-
-            if (id != null)
-            {
-                activeUser = users.GetUserById(id);
-            }
-            var uid = activeUser.Id;
-
-            return db.GetByUserId(uid);
-        }
-
-        // POST api/values
         [Authorize]
         [HttpPost]
         public Vault Post([FromBody]Vault Vault)
@@ -67,31 +39,29 @@ namespace keepr.Controllers
 
             if (id != null)
             {
-                activeUser = users.GetUserById(id);
+                activeUser = userDb.GetUserById(id);
             }
             Vault.UserId = activeUser.Id;
 
-            return db.Add(Vault);
+            return vaultDb.Add(Vault);
         }
 
-        // PUT api/values/5
         [Authorize]
         [HttpPut("{id}")]
         public Vault Put(int id, [FromBody]Vault Vault)
         {
             if (ModelState.IsValid)
             {
-                return db.GetOneByIdAndUpdate(id, Vault);
+                return vaultDb.GetOneByIdAndUpdate(id, Vault);
             }
             return null;
         }
 
-        // DELETE api/values/5
         [Authorize]
         [HttpDelete("{id}")]
         public string Delete(int id)
         {
-            return db.FindByIdAndRemove(id);
+            return vaultDb.FindByIdAndRemove(id);
         }
     }
 }

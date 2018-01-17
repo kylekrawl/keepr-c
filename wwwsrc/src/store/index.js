@@ -50,7 +50,7 @@ var store = new vuex.Store({
     },
     actions: {
 
-        // ACCOUNT/AUTH:
+        // ACCOUNT / USER AUTH:
 
         login({ commit, dispatch }, payload) {
             auth.post('account/login', payload)
@@ -96,9 +96,9 @@ var store = new vuex.Store({
                 })
         },
 
-        // PUBLIC ACCESS:
+        // PUBLICLY ACCESSIBLE RESOURCE METHODS:
 
-        getAllKeeps({ commit, dispatch }, payload) {
+        getPublicKeeps({ commit, dispatch }, payload) {
             api('keeps')
                 .then(res => {
                     commit('setKeeps', { data: res.data })
@@ -108,18 +108,8 @@ var store = new vuex.Store({
                 })
         },
 
-        getPublicKeeps({ commit, dispatch }, payload) {
-            api('keeps/public')
-                .then(res => {
-                    commit('setKeeps', { data: res.data })
-                })
-                .catch(err => {
-                    commit('handleError', err)
-                })
-        },
-
         getPublicKeepsByQuery({ commit, dispatch }, payload) {
-            api(`keeps/public/${payload.data}`)
+            api(`keeps/search/${payload.data}`)
                 .then(res => {
                     commit('setKeeps', { data: res.data })
                 })
@@ -148,8 +138,10 @@ var store = new vuex.Store({
                 })
         },
 
+        // USER-MANAGED AND AUTH-ONLY RESOURCE METHODS:
+
         getKeepsInVault({ commit, dispatch }, payload) {
-            api(`keeps/vaults/${payload.id}`)
+            api(`manage/vaults/${payload.id}/keeps`)
                 .then(res => {
                     commit('setKeeps', { data: res.data })
                 })
@@ -159,7 +151,7 @@ var store = new vuex.Store({
         },
 
         getUserKeeps({ commit, dispatch }) {
-            api(`keeps/manage`)
+            api(`manage/keeps`)
                 .then(res => {
                     commit('setKeeps', { data: res.data })
                     dispatch('authenticate')
@@ -170,7 +162,7 @@ var store = new vuex.Store({
         },
 
         getUserVaults({ commit, dispatch }) {
-            api(`vaults/manage`)
+            api(`manage/vaults`)
                 .then(res => {
                     commit('setVaults', { data: res.data })
                     dispatch('authenticate')
@@ -179,8 +171,6 @@ var store = new vuex.Store({
                     commit('handleError', err)
                 })
         },
-
-        // REGISTERED USERS ONLY:
 
         createKeep({ commit, dispatch }, payload) {
             api.post('keeps', payload)
@@ -203,7 +193,7 @@ var store = new vuex.Store({
         },
 
         addKeepToVault({ commit, dispatch }, payload) {
-            api.post('vaultkeeps', payload)
+            api.post(`manage/vaults/${payload.vaultId}/keeps`, payload)
                 .then(res => {
                     console.log("Successfully added keep to vault.")
                 })
@@ -213,7 +203,7 @@ var store = new vuex.Store({
         },
 
         removeKeepFromVault({ commit, dispatch }, payload) {
-            api.delete(`vaultkeeps/vaults/${payload.vaultId}/keeps/${payload.keepId}`, payload)
+            api.delete(`manage/vaults/${payload.vaultId}/keeps/${payload.keepId}`, payload)
                 .then(res => {
                     console.log("Successfully removed keep from vault.")
                     dispatch("getKeepsInVault", { id: payload.vaultId })

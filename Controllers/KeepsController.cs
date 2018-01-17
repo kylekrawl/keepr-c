@@ -12,76 +12,32 @@ namespace keepr.Controllers
     [Route("api/[controller]")]
     public class KeepsController : Controller
     {
-        private readonly KeepRepository db;
-        private readonly UserRepository users;
+        private readonly KeepRepository keepDb;
+        private readonly UserRepository userDb;
         public KeepsController(KeepRepository KeepRepo, UserRepository UserRepo)
         {
-            db = KeepRepo;
-            users = UserRepo;
+            keepDb = KeepRepo;
+            userDb = UserRepo;
         }
 
-        // GET api/values
         [HttpGet]
-        public IEnumerable<Keep> Get()
+        public IEnumerable<Keep> GetAllPublic()
         {
-            return db.GetAll();
+            return keepDb.GetAllPublic();
         }
 
-        // GET api/values/5
         [HttpGet("{id}")]
         public Keep Get(int id)
         {
-            Console.WriteLine(id);
-            return db.GetById(id);
+            return keepDb.GetById(id);
         }
 
-        [HttpGet("public")]
-        public IEnumerable<Keep> GetAllPublic()
-        {
-            return db.GetAllPublic();
-        }
-
-        [HttpGet("public/{query}")]
+        [HttpGet("search/{query}")]
         public IEnumerable<Keep> GetAllPublicByQuery(string query)
         {
-            return db.GetAllPublicByQuery(query);
+            return keepDb.GetAllPublicByQuery(query);
         }
 
-        [HttpGet("vaults/{id}")]
-        public IEnumerable<Keep> GetByVault(int id)
-        {
-            Console.WriteLine("GetByVault called!");
-            return db.GetByVaultId(id);
-        }
-
-        [HttpGet("users/{id}")]
-        public IEnumerable<Keep> GetByUser(int id)
-        {
-            Console.WriteLine("GetKeepsByUser called!");
-            return db.GetByUserId(id);
-        }
-
-        [Authorize]
-        [HttpGet("manage")]
-        public IEnumerable<Keep> GetByActiveUser()
-        {
-            Console.WriteLine("GetKeepsByActiveUser called!");
-
-            var user = HttpContext.User;
-            var id = user.Identity.Name;
-
-            UserReturnModel activeUser = null;
-
-            if (id != null)
-            {
-                activeUser = users.GetUserById(id);
-            }
-            var uid = activeUser.Id;
-
-            return db.GetByUserId(uid);
-        }
-
-        // POST api/values
         [Authorize]
         [HttpPost]
         public Keep Post([FromBody]Keep Keep)
@@ -94,21 +50,20 @@ namespace keepr.Controllers
 
             if (id != null)
             {
-                activeUser = users.GetUserById(id);
+                activeUser = userDb.GetUserById(id);
             }
             Keep.UserId = activeUser.Id;
 
-            return db.Add(Keep);
+            return keepDb.Add(Keep);
         }
 
-        // PUT api/values/5
         [Authorize]
         [HttpPut("{id}")]
         public Keep Put(int id, [FromBody]Keep Keep)
         {
             if (ModelState.IsValid)
             {
-                return db.GetOneByIdAndUpdate(id, Keep);
+                return keepDb.GetOneByIdAndUpdate(id, Keep);
             }
             return null;
         }
@@ -118,7 +73,7 @@ namespace keepr.Controllers
         [HttpDelete("{id}")]
         public string Delete(int id)
         {
-            return db.FindByIdAndRemove(id);
+            return keepDb.FindByIdAndRemove(id);
         }
     }
 }
