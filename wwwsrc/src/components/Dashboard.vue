@@ -1,14 +1,18 @@
 <template>
     <div class="home container-fluid text-center">
-        <div class="row">
+        <div class="row dashboard-main">
             <div class="col-sm-offset-4 col-sm-4">
                 <h1 class="main-font main-title">Dashboard</h1>
                 <button type="button" class="btn btn-primary btn-main" data-toggle="modal" data-target="#create-vault-modal">New Vault</button>
                 <button type="button" class="btn btn-primary btn-main" data-toggle="modal" data-target="#create-keep-modal">New Keep</button>
             </div>
         </div>
-        <div class="row">
+        <div class="row dashboard-row">
             <h2 class="secondary-title">My Keeps</h2>
+            <div v-if="!keeps.length">
+                <h3 class="empty-message">Looks like you haven't made any keeps yet! Why not make one now?</h3>
+                <button type="button" class="btn btn-primary btn-main" data-toggle="modal" data-target="#create-keep-modal">New Keep</button>
+            </div>
             <div class="keep col-sm-3 well" v-for="keep in keeps">
                 <div class="image-wrapper">
                     <img class="img-responsive text-center keep-image" :src="keep.imageUrl" alt="">
@@ -46,8 +50,13 @@
                 </button>
             </div>
         </div>
-        <div class="row">
+
+        <div class="row dashboard-row">
             <h2 class="secondary-title">My Vaults</h2>
+            <div v-if="!vaults.length">
+                    <h3 class="empty-message">No vaults to be found. You should add one!</h3>
+                    <button type="button" class="btn btn-primary btn-main" data-toggle="modal" data-target="#create-vault-modal">New Vault</button>
+                </div>
             <div class="vault col-sm-4 well" v-for="vault in vaults">
                 <h2>{{vault.name}}</h2>
                 <h4>{{vault.description}}</h4>

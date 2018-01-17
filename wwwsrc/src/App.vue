@@ -8,16 +8,16 @@
         <div class="text-right" v-if="activeUser.hasOwnProperty('username')">
           <p class="navbar-text">{{activeUser.username}}</p>
           <router-link :to="{name: 'Home'}">
-            <button type="button" class="btn btn-primary navbar-btn navbar-button-default">Home</button>
+            <button type="button" class="btn btn-primary navbar-btn">Home</button>
           </router-link>
           <router-link :to="{name: 'Dashboard'}">
-            <button type="button" class="btn btn-primary navbar-btn navbar-button-default">Dashboard</button>
+            <button type="button" class="btn btn-primary navbar-btn">Dashboard</button>
           </router-link>
-          <button type="button" class="btn btn-danger navbar-btn logout-btn" @click="logout">Logout</button>
+          <button type="button" class="btn btn-danger navbar-btn right-btn" @click="logout">Logout</button>
         </div>
         <div class="text-right" v-else>
           <button type="button" class="btn btn-primary navbar-btn" data-toggle="modal" data-target="#login">Login</button>
-          <button type="button" class="btn btn-success navbar-btn" data-toggle="modal" data-target="#signUp">Signup</button>
+          <button type="button" class="btn btn-alt navbar-btn right-btn" data-toggle="modal" data-target="#signUp">Signup</button>
         </div>
       </div>
     </nav>
@@ -153,10 +153,23 @@
 
 <style>
   body {
-    font-family: 'Lato', sans-serif;
+    font-family: 'PT Sans', sans-serif;
     background: #fff;
     background: linear-gradient(rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5)), url("./assets/parchment.jpg") no-repeat fixed center;
     background-size: cover;
+  }
+
+  .dashboard-row {
+    min-height: 35vh;
+    border-top: 2px solid #000;
+  }
+
+  .dashboard-main {
+    min-height: 30vh;
+  }
+
+  .empty-message {
+    margin-bottom: 30px;
   }
 
   .search-bar {
@@ -165,11 +178,12 @@
 
   .keep {
     border: 1px solid #404040;
+    background: #fff;
   }
 
   .main-title {
     font-size: 4em;
-    margin-bottom: 40px;
+    margin: 40px 0 40px;
   }
 
   .secondary-title {
@@ -262,7 +276,7 @@
     list-style-type: none;
   }
 
-  .logout-btn {
+  .right-btn {
     margin: 0 10px 0 2px;
   }
 

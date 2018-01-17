@@ -3,12 +3,14 @@
     <h1 class="main-font main-title">Keepr</h1>
     <div class="row">
       <div class="col-sm-offset-4 col-sm-4">
-          <form class="form-inline search-bar" @submit.prevent="searchQuery">
-              <div class="form-group">
-                  <input type="text" class="form-control" name="query" placeholder="Search Keeps" v-model="query">
-                  <button type="submit" class="btn btn-alt btn-submit" id="search-button"><span class="glyphicon glyphicon-search"></span></button>
-              </div>
-          </form>
+        <form class="form-inline search-bar" @submit.prevent="searchQuery">
+          <div class="form-group">
+            <input type="text" class="form-control" name="query" placeholder="Search Keeps" v-model="query">
+            <button type="submit" class="btn btn-alt btn-submit" id="search-button">
+              <span class="glyphicon glyphicon-search"></span>
+            </button>
+          </div>
+        </form>
       </div>
     </div>
     <div class="row">
@@ -44,6 +46,12 @@
             <h3>{{activeKeep.name}}</h3>
           </div>
           <div class="modal-body">
+            <div v-if="!vaults.length">
+              <h4 class="empty-message">You don't have any vaults. Head to your Dashboard to create one!</h4>
+              <router-link :to="{path: 'Dashboard'}">
+                <button type="button" class="btn btn-primary btn-main" data-dismiss="modal">Dashboard</button>
+              </router-link>
+            </div>
             <div class="row" v-for="vault in vaults">
               <h5 class="pull-left">{{vault.name}}</h5>
               <button title="Add to Vault" type="button" class="btn btn-success pull-right" data-dismiss="modal" @click="addKeepToVault(activeKeep, vault.id)">
