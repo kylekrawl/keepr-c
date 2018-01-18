@@ -62,7 +62,10 @@
             <h4>{{activeKeep.name}}</h4>
           </div>
           <div class="modal-body">
-            <div v-if="!vaults.length">
+            <div v-if="!activeUser.hasOwnProperty('username')">
+              <h4 class="empty-message">Sign in or create and account to join the fun!</h4>
+            </div>
+            <div v-else-if="!vaults.length">
               <h4 class="empty-message">You don't have any vaults. Head to your Dashboard to create one!</h4>
               <router-link :to="{path: 'Dashboard'}">
                 <button type="button" class="btn btn-primary btn-main" data-dismiss="modal">Dashboard</button>
@@ -112,6 +115,7 @@
         </div>
       </div>
     </div>
+
   </div>
 </template>
 

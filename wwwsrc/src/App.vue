@@ -155,7 +155,7 @@
   body {
     font-family: 'PT Sans', sans-serif;
     background: #fff;
-    background: linear-gradient(rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5)), url("./assets/parchment.jpg") no-repeat fixed center;
+    background: linear-gradient(rgba(255, 255, 255, 0), rgba(255, 255, 255, 0)), url("./assets/parchment.jpg") no-repeat fixed center;
     background-size: cover;
   }
 
@@ -178,7 +178,7 @@
 
   .keep {
     border: 1px solid #404040;
-    background: #fff;
+    background: #f2f2f2;
   }
 
   .main-title {

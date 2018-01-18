@@ -57,7 +57,6 @@ namespace keepr.Controllers
             return keepDb.Add(Keep);
         }
 
-        [Authorize]
         [HttpPut("{id}")]
         public Keep Put(int id, [FromBody]Keep Keep)
         {
