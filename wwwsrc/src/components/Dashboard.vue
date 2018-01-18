@@ -23,7 +23,7 @@
                         <button title="Keep" type="button" class="btn btn-alt btn-icon" data-toggle="modal" data-target="#add-to-vault-modal" @click="vaultAddView(keep)">
                             <span class="custom-icon main-font">K</span>
                         </button>
-                        <button title="View" type="button" class="btn btn-primary btn-icon" data-toggle="modal" data-target="#view-keep-modal" @click="viewKeep(keep)">
+                        <button title="View" type="button" class="btn btn-alt-3 btn-icon" data-toggle="modal" data-target="#view-keep-modal" @click="viewKeep(keep)">
                             <span class="glyphicon glyphicon-zoom-in"></span>
                         </button>
                         <button title="Share" type="button" class="btn btn-alt-2 btn-icon" disabled>
@@ -51,8 +51,10 @@
                     <span class="counter-label">: {{keep.vaultAdds}}</span>
                 </span>
                 <h3>{{keep.name}}</h3>
-                <p v-if="keep.published">Public</p>
-                <p v-else>Private</p>
+                <p v-if="keep.published">
+                    <span class="small-icon glyphicon glyphicon-eye-open"></span> Public</p>
+                <p v-else>
+                    <span class="small-icon glyphicon glyphicon-eye-close"></span> Private</p>
                 <div v-if="keep.published">
                     <button title="Make Private" type="button" class="btn btn-primary btn-icon" @click="unpublishKeep(keep)">
                         <span class="glyphicon glyphicon glyphicon-eye-close"></span>
@@ -60,7 +62,7 @@
                     <button title="Keep" type="button" class="btn btn-alt btn-icon" data-toggle="modal" data-target="#add-to-vault-modal" @click="vaultAddView(keep)">
                         <span class="custom-icon main-font">K</span>
                     </button>
-                    <button title="View" type="button" class="btn btn-primary btn-icon" data-toggle="modal" data-target="#view-keep-modal" @click="viewKeep(keep)">
+                    <button title="View" type="button" class="btn btn-alt-3 btn-icon" data-toggle="modal" data-target="#view-keep-modal" @click="viewKeep(keep)">
                         <span class="glyphicon glyphicon-zoom-in"></span>
                     </button>
                     <button title="Share" type="button" class="btn btn-alt-2 btn-icon" disabled>
@@ -147,9 +149,21 @@
                                 <label for="description">Image Link:</label>
                                 <input type="text" name="image" maxlength="200" class="form-control" placeholder="Image Link" required v-model='newKeep.imageUrl'>
                             </div>
-                            <div class="form-group">
+                            <!-- <div class="form-group">
                                 <label for="description">Article Link:</label>
                                 <input type="text" name="article" maxlength="200" class="form-control" placeholder="Article Link" required v-model='newKeep.articleUrl'>
+                            </div> -->
+                            <div v-if="createPublic" class="form-group">
+                                <h5>Create Mode: Public</h5>
+                                <button type="button" class="btn btn-primary" @click="toggleCreatePublic">
+                                    <span class="glyphicon glyphicon-eye-close"></span>
+                                </button>
+                            </div>
+                            <div v-else class="form-group">
+                                <h5>Create Mode: Private</h5>
+                                <button type="button" class="btn btn-primary" @click="toggleCreatePublic">
+                                    <span class="glyphicon glyphicon-eye-open"></span>
+                                </button>
                             </div>
                             <div class="form-group">
                                 <button class="btn btn-submit btn-success" @click="createKeep" data-dismiss="modal" type="submit">Create</button>
@@ -180,10 +194,10 @@
                                 <label for="description">Image Link:</label>
                                 <input type="text" name="image" maxlength="200" class="form-control" placeholder="Image Link" required v-model='targetKeep.imageUrl'>
                             </div>
-                            <div class="form-group">
+                            <!-- <div class="form-group">
                                 <label for="description">Article Link:</label>
                                 <input type="text" name="article" maxlength="200" class="form-control" placeholder="Article Link" required v-model='targetKeep.articleUrl'>
-                            </div>
+                            </div> -->
                             <div class="form-group">
                                 <button class="btn btn-submit btn-success" @click="editKeep(targetKeep)" data-dismiss="modal" type="submit">Submit</button>
                             </div>
@@ -263,6 +277,7 @@
         name: 'Dashboard',
         data() {
             return {
+                createPublic: true,
                 newVault: {
                     name: '',
                     description: ''
@@ -283,7 +298,7 @@
                     imageUrl: '',
                     articleUrl: '',
                     published: false
-                }
+                },
             }
         },
         components: {
@@ -309,6 +324,9 @@
             }
         },
         methods: {
+            toggleCreatePublic() {
+                this.createPublic = !this.createPublic
+            },
             setTargetKeep(keep) {
                 this.targetKeep = {
                     id: keep.id,
@@ -371,6 +389,7 @@
                 }
             },
             createKeep() {
+                this.newKeep.published = this.createPublic
                 this.$store.dispatch('createKeep', this.newKeep)
                 this.newKeep = {
                     name: '',
@@ -379,6 +398,7 @@
                     views: 0,
                     vaultAdds: 0
                 }
+                this.createPublic = true
             },
             removeKeep(id) {
                 this.$store.dispatch('removeKeep', { id })

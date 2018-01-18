@@ -154,14 +154,18 @@
 <style>
   body {
     font-family: 'PT Sans', sans-serif;
-    background: #fff;
-    background: linear-gradient(rgba(255, 255, 255, 0), rgba(255, 255, 255, 0)), url("./assets/parchment.jpg") no-repeat fixed center;
+    background: rgba(41, 39, 39, 1);
+    background: linear-gradient(rgba(41, 39, 39, 0.5), rgba(41, 39, 39, 0.5)), url("./assets/wall.jpg") no-repeat fixed center;
     background-size: cover;
+    color: #f2f2f2;
+  }
+
+  .navbar, .navbar-inverse {
+    background: #000;
   }
 
   .dashboard-row {
     min-height: 35vh;
-    border-top: 2px solid #000;
   }
 
   .dashboard-main {
@@ -176,9 +180,10 @@
     margin-bottom: 40px;
   }
 
-  .keep {
+  .keep, .vault {
     border: 1px solid #404040;
-    background: #f2f2f2;
+    background: #404040;
+    background: linear-gradient(rgb(80, 80, 80), rgb(51, 51, 51));
   }
 
   .main-title {
@@ -191,19 +196,38 @@
     margin: 40px 0 40px;
   }
 
+  .btn {
+    border: none;
+  }
+
   .btn-primary {
     background: #737373;
     border: 1px solid #737373;
   }
 
+  .btn-danger {
+    background: #b30000;
+    background: linear-gradient(rgba(179, 0, 0, 0.6), rgba(179, 0, 0, 0.6)), url("./assets/gem.jpg") no-repeat center;
+    background-size: auto;
+  }
+
   .btn-alt {
     background: #ffcc00;
-    border: 1px solid #ffcc00;
+    background: linear-gradient(rgba(255, 204, 0, 0.6), rgba(255, 204, 0, 0.6)), url("./assets/gem.jpg") no-repeat center;
+    background-size: auto;
+    color: #000;
   }
 
   .btn-alt-2 {
     background: #00ffff;
-    border: 1px solid #00ffff;
+    background: linear-gradient(rgba(0, 255, 255, 0.6), rgba(0, 255, 255, 0.6)), url("./assets/gem.jpg") no-repeat center;
+    color: #000;
+  }
+
+  .btn-alt-3 {
+    background: #993399;
+    background: linear-gradient(rgba(153, 51, 153, 0.6), rgba(153, 51, 153, 0.6)), url("./assets/gem.jpg") no-repeat center;
+    color: #fff;
   }
 
   .btn-primary:hover,
@@ -213,18 +237,36 @@
     border: 1px solid #404040;
   }
 
+  .btn-danger:hover,
+  .btn-danger:active,
+  .btn-danger:focus {
+    background: #990000;
+    background: linear-gradient(rgba(153, 0, 0, 0.6), rgba(153, 0, 0, 0.6)), url("./assets/gem.jpg") no-repeat center;
+    color: #fff;
+  }
+
   .btn-alt:hover,
   .btn-alt:active,
   .btn-alt:focus {
     background: #e6b800;
-    border: 1px solid #e6b800;
+    background: linear-gradient(rgba(230, 184, 0, 0.6), rgba(230, 184, 0, 0.6)), url("./assets/gem.jpg") no-repeat center;
+    color: #000;
   }
 
   .btn-alt-2:hover,
   .btn-alt-2:active,
   .btn-alt-2:focus {
     background: #00e6e6;
-    border: 1px solid #00e6e6;
+    background: linear-gradient(rgba(0, 230, 230, 0.6), rgba(0, 230, 230, 0.6)), url("./assets/gem.jpg") no-repeat center;
+    color: #000;
+  }
+
+  .btn-alt-3:hover,
+  .btn-alt-3:active,
+  .btn-alt-3:focus {
+    background: #862d86;
+    background: linear-gradient(rgba(134, 45, 134, 0.6), rgba(134, 45, 134, 0.6)), url("./assets/gem.jpg") no-repeat center;
+    color: #fff;
   }
 
   .image-wrapper {
@@ -269,6 +311,10 @@
 
   .glyphicon {
     font-size: 1.5em;
+  }
+
+  .small-icon {
+    font-size: 0.9em;
   }
 
   .custom-icon,

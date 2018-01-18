@@ -6,7 +6,7 @@
                 <button title="Keep" type="button" class="btn btn-alt btn-icon" data-toggle="modal" data-target="#add-to-vault-modal" @click="vaultAddView(keep)">
                     <span class="custom-icon main-font">K</span>
                 </button>
-                <button title="View" type="button" class="btn btn-primary btn-icon" data-toggle="modal" data-target="#view-keep-modal" @click="viewKeep(keep)">
+                <button title="View" type="button" class="btn btn-alt-3 btn-icon" data-toggle="modal" data-target="#view-keep-modal" @click="viewKeep(keep)">
                     <span class="glyphicon glyphicon-zoom-in"></span>
                 </button>
                 <button title="Share" type="button" class="btn btn-alt-2 btn-icon" disabled>
@@ -26,7 +26,7 @@
         <button title="Keep" type="button" class="btn btn-alt btn-icon" data-toggle="modal" data-target="#add-to-vault-modal" @click="vaultAddView(keep)">
             <span class="custom-icon main-font">K</span>
         </button>
-        <button title="View" type="button" class="btn btn-primary btn-icon" data-toggle="modal" data-target="#view-keep-modal" @click="viewKeep(keep)">
+        <button title="View" type="button" class="btn btn-alt-3 btn-icon" data-toggle="modal" data-target="#view-keep-modal" @click="viewKeep(keep)">
             <span class="glyphicon glyphicon-zoom-in"></span>
         </button>
         <button title="Share" type="button" class="btn btn-alt-2 btn-icon" disabled>

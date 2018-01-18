@@ -112,9 +112,8 @@ var store = new vuex.Store({
         logout({ commit, dispatch }) {
             auth.delete('account/logout')
                 .then(() => {
-                    var user = {}
-                    commit('setActiveUser', user)
-                    dispatch('getUserVaults')
+                    commit('setActiveUser', {})
+                    commit('setVaults', [])
                     router.push({ name: 'Home' })
                 })
         },
