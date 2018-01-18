@@ -63,7 +63,7 @@
           </div>
           <div class="modal-body">
             <div v-if="!activeUser.hasOwnProperty('username')">
-              <h4 class="empty-message">Sign in or create and account to join the fun!</h4>
+              <h4 class="empty-message">Sign in or create an account to join the fun!</h4>
             </div>
             <div v-else-if="!vaults.length">
               <h4 class="empty-message">You don't have any vaults. Head to your Dashboard to create one!</h4>
@@ -74,14 +74,14 @@
             <div class="row" v-for="vault in vaults">
               <div class="col-xs-offset-3 col-xs-6">
                 <h4 class="pull-left">{{vault.name}}</h4>
-                <button title="Add to Vault" type="button" class="btn btn-success add-button pull-right" data-dismiss="modal" @click="addKeepToVault(activeKeep, vault.id)">
-                  <span class="glyphicon glyphicon-plus-sign"></span>
+                <button title="Add to Vault" type="button" class="btn btn-alt-2 pull-right" data-dismiss="modal" @click="addKeepToVault(activeKeep, vault.id)">
+                  <span class="glyphicon glyphicon-plus"></span>
                 </button>
               </div>
             </div>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-default btn-modal" data-dismiss="modal">Close</button>
           </div>
         </div>
       </div>
@@ -110,7 +110,7 @@
             </div>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-default btn-modal" data-dismiss="modal">Close</button>
           </div>
         </div>
       </div>

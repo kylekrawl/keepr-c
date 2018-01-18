@@ -1,7 +1,7 @@
 <template>
     <div class="home container-fluid text-center">
-        <h1>{{activeVault.name}}</h1>
-        <h3>{{activeVault.description}}</h3>
+        <h1 class="empty-message">{{activeVault.name}}</h1>
+        <h3 class="empty-message">{{activeVault.description}}</h3>
         <!-- <div class="keep col-sm-3" v-for="keep in keeps">
             <h2>{{keep.name}}</h2>
             <img class="img-responsive" :src="keep.imageUrl" alt="">
@@ -58,23 +58,20 @@
                         <h4>{{activeKeep.name}}</h4>
                     </div>
                     <div class="modal-body">
-                        <div v-if="!vaults.length">
-                            <h4 class="empty-message">You don't have any vaults. Head to your Dashboard to create one!</h4>
-                            <router-link :to="{path: 'Dashboard'}">
-                                <button type="button" class="btn btn-primary btn-main" data-dismiss="modal">Dashboard</button>
-                            </router-link>
+                        <div v-if="vaults.length == 1">
+                            <h4 class="empty-message">That keep is already in this vault!</h4>
                         </div>
-                        <div class="row" v-for="vault in vaults">
+                        <div class="row" v-for="vault in vaults" v-if="vault.id != activeVault.id">
                             <div class="col-xs-offset-3 col-xs-6">
                                 <h4 class="pull-left">{{vault.name}}</h4>
-                                <button title="Add to Vault" type="button" class="btn btn-success add-button pull-right" data-dismiss="modal" @click="addKeepToVault(activeKeep, vault.id)">
-                                    <span class="glyphicon glyphicon-plus-sign"></span>
+                                <button title="Add to Vault" type="button" class="btn btn-alt-2 pull-right" data-dismiss="modal" @click="addKeepToVault(activeKeep, vault.id)">
+                                    <span class="glyphicon glyphicon-plus"></span>
                                 </button>
                             </div>
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-default btn-modal" data-dismiss="modal">Close</button>
                     </div>
                 </div>
             </div>
@@ -103,7 +100,7 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-default btn-modal" data-dismiss="modal">Close</button>
                     </div>
                 </div>
             </div>

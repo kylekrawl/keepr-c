@@ -3,15 +3,15 @@
         <div class="row dashboard-main">
             <div class="col-sm-offset-4 col-sm-4">
                 <h1 class="main-font main-title">Dashboard</h1>
-                <button type="button" class="btn btn-primary btn-main" data-toggle="modal" data-target="#create-vault-modal">New Vault</button>
-                <button type="button" class="btn btn-primary btn-main" data-toggle="modal" data-target="#create-keep-modal">New Keep</button>
+                <button type="button" class="btn btn-alt-2" data-toggle="modal" data-target="#create-vault-modal">New Vault</button>
+                <button type="button" class="btn btn-alt-2" data-toggle="modal" data-target="#create-keep-modal">New Keep</button>
             </div>
         </div>
         <div class="row dashboard-row">
             <h2 class="secondary-title">My Keeps</h2>
             <div v-if="!keeps.length">
                 <h3 class="empty-message">Looks like you haven't made any keeps yet! Why not make one now?</h3>
-                <button type="button" class="btn btn-primary btn-main" data-toggle="modal" data-target="#create-keep-modal">New Keep</button>
+                <button type="button" class="btn btn-alt-2" data-toggle="modal" data-target="#create-keep-modal">New Keep</button>
             </div>
             <div class="keep col-sm-4 col-md-3 well" v-for="keep in keeps">
                 <div class="image-wrapper">
@@ -87,13 +87,13 @@
             <h2 class="secondary-title">My Vaults</h2>
             <div v-if="!vaults.length">
                 <h3 class="empty-message">No vaults to be found. You should add one!</h3>
-                <button type="button" class="btn btn-primary btn-main" data-toggle="modal" data-target="#create-vault-modal">New Vault</button>
+                <button type="button" class="btn btn-alt-2" data-toggle="modal" data-target="#create-vault-modal">New Vault</button>
             </div>
             <div class="vault col-sm-6 col-md-4 well" v-for="vault in vaults">
-                <h2>{{vault.name}}</h2>
-                <h4>{{vault.description}}</h4>
+                <h2 class="vault-title">{{vault.name}}</h2>
+                <h4 class="vault-description">{{vault.description}}</h4>
                 <router-link :to="{path: 'my-vaults/' + vault.id}">
-                    <button title="View" type="button" class="btn btn-primary btn-icon">
+                    <button title="View" type="button" class="btn btn-alt-3 btn-icon">
                         <span class="glyphicon glyphicon-zoom-in"></span>
                     </button>
                 </router-link>
@@ -121,7 +121,7 @@
                                 <input type="text" name="description" maxlength="200" class="form-control" placeholder="Description" required v-model='newVault.description'>
                             </div>
                             <div class="form-group">
-                                <button class="btn btn-submit btn-success" @click="createVault" data-dismiss="modal" type="submit">Create</button>
+                                <button class="btn btn-submit btn-alt-2" @click="createVault" data-dismiss="modal" type="submit">Create</button>
                             </div>
                         </form>
                     </div>
@@ -158,20 +158,28 @@
                                 <button type="button" class="btn btn-primary" @click="toggleCreatePublic">
                                     <span class="glyphicon glyphicon-eye-close"></span>
                                 </button>
+                                <div class="alert alert-info">
+                                    Public keeps cannot be edited or deleted (Keeps can be toggled between public and private after posting).
+                                </div>
                             </div>
                             <div v-else class="form-group">
                                 <h5>Create Mode: Private</h5>
                                 <button type="button" class="btn btn-primary" @click="toggleCreatePublic">
                                     <span class="glyphicon glyphicon-eye-open"></span>
                                 </button>
+                                <div class="alert alert-info">
+                                    Private keeps can be edited or deleted, but cannot be added to vaults, and will no longer appear in vaults they were previously
+                                    added to (Keeps can be toggled between public and private after posting).
+                                </div>
+
                             </div>
                             <div class="form-group">
-                                <button class="btn btn-submit btn-success" @click="createKeep" data-dismiss="modal" type="submit">Create</button>
+                                <button class="btn btn-submit btn-alt-2" @click="createKeep" data-dismiss="modal" type="submit">Create</button>
                             </div>
                         </form>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-default btn-modal" data-dismiss="modal">Close</button>
                     </div>
                 </div>
             </div>
@@ -199,12 +207,12 @@
                                 <input type="text" name="article" maxlength="200" class="form-control" placeholder="Article Link" required v-model='targetKeep.articleUrl'>
                             </div> -->
                             <div class="form-group">
-                                <button class="btn btn-submit btn-success" @click="editKeep(targetKeep)" data-dismiss="modal" type="submit">Submit</button>
+                                <button class="btn btn-submit btn-alt-2" @click="editKeep(targetKeep)" data-dismiss="modal" type="submit">Submit</button>
                             </div>
                         </form>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-default btn-modal" data-dismiss="modal">Close</button>
                     </div>
                 </div>
             </div>
@@ -222,20 +230,20 @@
                         <div v-if="!vaults.length">
                             <h4 class="empty-message">You don't have any vaults. Head to your Dashboard to create one!</h4>
                             <router-link :to="{path: 'Dashboard'}">
-                                <button type="button" class="btn btn-primary btn-main" data-dismiss="modal">Dashboard</button>
+                                <button type="button" class="btn btn-primary" data-dismiss="modal">Dashboard</button>
                             </router-link>
                         </div>
                         <div class="row" v-for="vault in vaults">
                             <div class="col-xs-offset-3 col-xs-6">
                                 <h4 class="pull-left">{{vault.name}}</h4>
-                                <button title="Add to Vault" type="button" class="btn btn-success add-button pull-right" data-dismiss="modal" @click="addKeepToVault(activeKeep, vault.id)">
-                                    <span class="glyphicon glyphicon-plus-sign"></span>
+                                <button title="Add to Vault" type="button" class="btn btn-alt-2 btn-icon pull-right" data-dismiss="modal" @click="addKeepToVault(activeKeep, vault.id)">
+                                    <span class="glyphicon glyphicon-plus"></span>
                                 </button>
                             </div>
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-default btn-modal" data-dismiss="modal">Close</button>
                     </div>
                 </div>
             </div>
@@ -264,7 +272,7 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-default btn-modal" data-dismiss="modal">Close</button>
                     </div>
                 </div>
             </div>

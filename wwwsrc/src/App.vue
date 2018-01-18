@@ -40,7 +40,7 @@
                 <input type="password" name="password" maxlength="20" class="form-control" placeholder="password" required v-model='login.password'>
               </div>
               <div class="form-group">
-                <button class="btn btn-submit btn-success" @click="submitLogin" data-dismiss="modal" type="submit">Submit</button>
+                <button class="btn btn-submit btn-alt-2" @click="submitLogin" data-dismiss="modal" type="submit">Submit</button>
               </div>
             </form>
           </div>
@@ -80,7 +80,7 @@
                 <input type="password" name="reEnterPassword" maxlength="20" class="form-control" placeholder="Password" v-model="signUp.rPassword">
               </div>
               <div class="form-group">
-                <button class="btn btn-submit btn-success" data-dismiss="modal" type="submit" @click="submitRegister">Submit</button>
+                <button class="btn btn-submit btn-alt-2" data-dismiss="modal" type="submit" @click="submitRegister">Submit</button>
               </div>
             </form>
           </div>
@@ -153,11 +153,19 @@
 
 <style>
   body {
-    font-family: 'PT Sans', sans-serif;
+    font-family: 'Kavivanar', cursive;
     background: rgba(41, 39, 39, 1);
-    background: linear-gradient(rgba(41, 39, 39, 0.5), rgba(41, 39, 39, 0.5)), url("./assets/wall.jpg") no-repeat fixed center;
+    background: linear-gradient(rgba(41, 39, 39, 0.4), rgba(41, 39, 39, 0.4)), url("./assets/wall.jpg") no-repeat fixed center;
     background-size: cover;
     color: #f2f2f2;
+  }
+
+  .alert {
+    margin-top: 10px;
+  }
+
+  .modal-content {
+    background: linear-gradient(rgb(80, 80, 80), rgb(51, 51, 51));
   }
 
   .navbar, .navbar-inverse {
@@ -186,6 +194,14 @@
     background: linear-gradient(rgb(80, 80, 80), rgb(51, 51, 51));
   }
 
+  .vault-title {
+    margin: 10px 0;
+  }
+  
+  .vault-description {
+    margin: 30px 0;
+  }
+
   .main-title {
     font-size: 4em;
     margin: 40px 0 40px;
@@ -196,13 +212,19 @@
     margin: 40px 0 40px;
   }
 
+  .main-title,
+  .secondary-title,
+  .empty-message {
+    text-shadow: 0px 3px #000;
+  } 
+
   .btn {
     border: none;
   }
 
   .btn-primary {
-    background: #737373;
-    border: 1px solid #737373;
+    background: #cccccc;
+    color: #000;
   }
 
   .btn-danger {
@@ -233,8 +255,8 @@
   .btn-primary:hover,
   .btn-primary:active,
   .btn-primary:focus {
-    background: #404040;
-    border: 1px solid #404040;
+    background: #bfbfbf;
+    color: #000;
   }
 
   .btn-danger:hover,
@@ -269,6 +291,18 @@
     color: #fff;
   }
 
+  .btn-modal {
+    background: #737373;
+    color: #fff;
+  }
+
+  .btn-modal:hover,
+  .btn-modal:active,
+  .btn-modal:focus {
+    background: #666666;
+    color: #fff;
+  }
+
   .image-wrapper {
     position: relative;
     width: 100%;
@@ -296,6 +330,7 @@
 
   .keep-large-view {
     margin-bottom: 20px;
+    max-width: 500px;
   }
 
   .overlay-content {
