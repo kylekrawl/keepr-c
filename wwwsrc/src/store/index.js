@@ -26,7 +26,7 @@ var store = new vuex.Store({
         activeKeep: {},
         activeVault: {},
         vaults: [],
-        keeps: [],
+        keeps: []
 
         // ABSTRACTED STATE VARIABLES (Incomplete):
 
@@ -93,6 +93,7 @@ var store = new vuex.Store({
                 .then(res => {
                     console.log(res)
                     commit('setActiveUser', res.data)
+                    dispatch('getUserVaults')
                 })
                 .catch((err) => {
                     commit('handleError', err)
